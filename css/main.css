@@ -1,0 +1,42 @@
+body {
+	background-color: #acf;
+	font-family: sans-serif;
+	text-align: center;
+}
+#top {
+	color: #36a;
+	padding-top: 20px;
+	padding-right: 16px;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 500px;
+}
+#top .title {
+	font-size: 80px;
+}
+#top .motto {
+	font-style: italic;
+	text-align: right;
+	font-size: small;
+}
+#top img {
+	vertical-align: bottom;
+	margin-right: 10px;
+}
+#main {
+	text-align: left;
+	display: inline-block;
+	min-width: 500px;
+	margin: 5%;
+	padding: 1em;
+	color: #456;
+	background-color: #eef;
+	border: 1px solid #68c;
+	border-radius: 5px;
+	box-shadow: 3px 3px 1px 1px rgba(0,0,0,0.5);
+}
+#foot {
+	font-size: 9pt;
+	text-align: center;
+	color: #678;
+}
