@@ -1,0 +1,3 @@
+/* TEAM */
+	Author: Daniel Lima
+	Contact: danielm at tinyhub.tk
