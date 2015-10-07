@@ -4,12 +4,27 @@
 	<title>tinyhub.tk</title>
 	<link href="/atom.xml" rel="self"/>
 	<link href="/"/>
-	<updated>2015-10-01T11:58:57-03:00</updated>
+	<updated>2015-10-07T00:45:28-03:00</updated>
 	<id>http://tinyhub.tk//</id>
 	<author>
 		<name>Daniel Lima</name>
 	</author>
 
+	
+	<entry>
+		<title>20th Million Man March</title>
+		<link href="/blog/2015/10/07/million-man-march/"/>
+		<updated>2015-10-07T00:00:00-03:00</updated>
+		<id>tinyhub.tk/blog/2015/10/07/million-man-march</id>
+		<content type="html">&lt;p&gt;In three days the &lt;a href=&quot;http://en.wikipedia.org/wiki/Million_Man_March&quot;&gt;20th Million Man March&lt;/a&gt;
+will happen.
+I made this T-Shirt design for one of the attendant groups, but got no response yet...&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2015/tshirt-million-man.jpg&quot; alt=&quot;20thMMM T-Shirt&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Simple and effective.&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>Under construction</title>
