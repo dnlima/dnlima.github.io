@@ -28,12 +28,6 @@ hr {
   color: #8ae;
   background-color: #8ae;
 }
-img {
-  max-width: 80%;
-  margin: 0 auto;
-  display: block;
-  border: 1px solid #aaa;
-}
 body > header {
   color: #36a;
   margin: 0 5px;
@@ -53,7 +47,6 @@ body > header {
   font-size: 0.6em;
 }
 .title > img {
-  border: 0;
   vertical-align: bottom;
 }
 body > nav {
@@ -152,6 +145,12 @@ article > footer {
 article > .ps {
   color: #789;
   font-size: 0.8em;
+}
+article img {
+  max-width: 80%;
+  margin: 0 auto;
+  display: block;
+  border: 1px solid #aaa;
 }
 .archives {
   margin: 0 10px 10px 0;
