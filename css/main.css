@@ -29,7 +29,6 @@ hr {
   background-color: #8ae;
 }
 body > header {
-  color: #36a;
   margin: 0 5px;
   display: inline-block;
 }
@@ -129,12 +128,15 @@ article > header > h2 {
   font-family: "linux biolinum",serif;
   font-size: 2em;
 }
+article > header a {
+  color: #234;
+}
 article > header > span {
   font-size: 0.8em;
 }
 article > .entry {
   padding-left: 2.5em;
-  font-size: 0.9em;
+  font-family: "liberation serif", serif;
 }
 article > footer {
   margin: 0;
