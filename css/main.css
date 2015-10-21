@@ -128,10 +128,11 @@ article > header > h2 {
   font-family: "linux biolinum",serif;
   font-size: 2em;
 }
-article > header a {
+article > header > h2 > a {
   color: #234;
 }
 article > header > span {
+  color: #789;
   font-size: 0.8em;
 }
 article > .entry {
@@ -178,5 +179,7 @@ article img {
   font-family: "linux biolinum",serif;
   font-size: 1.2em;
   font-weight: bold;
+}
+.archive .post-title a {
   color: #234;
 }
