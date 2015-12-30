@@ -1,0 +1,23 @@
+---
+layout: page
+title: Archive
+---
+
+<section class="archives">
+  {% for set in site.data['archive'] %}
+  <h3>{{ set.name }}</h3>
+  <table class="archive">
+    <tbody>
+    {% for post in set.posts %}
+    <tr>
+      <td><time datetime="{{ post.date|date:"%F" }}">{{ post.date|shortday }}</time></td>
+      <td class="post-title"><a href="{{ site.baseurl }}/{{ post.id }}">{{ post.title }}</a></td>
+      <td class="author">{% if post.author %}by {{ post.author }}{% endif %} on [{{ post.categories }}]</td>
+    </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+  {% endfor %}
+  <h3>No more entries.</h3>
+</section>
+<hr />

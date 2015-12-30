@@ -4,12 +4,24 @@
 	<title>tinyhub.tk</title>
 	<link href="/atom.xml" rel="self"/>
 	<link href="/"/>
-	<updated>2015-10-18T07:36:29-02:00</updated>
+	<updated>2015-12-30T02:12:21-02:00</updated>
 	<id>http://tinyhub.tk//</id>
 	<author>
 		<name>Daniel Lima</name>
 	</author>
 
+	
+	<entry>
+		<title>New Year</title>
+		<link href="/blog/2015/12/30/new-year/"/>
+		<updated>2015-12-30T00:00:00-02:00</updated>
+		<id>tinyhub.tk/blog/2015/12/30/new-year</id>
+		<content type="html">&lt;p&gt;Another year comes, so it is time for renewed spirits and happy faces!
+I just wish to empty the drawer of interrupted projects (and make this blog roll.)&lt;/p&gt;
+
+&lt;p&gt;Happy 2016!&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>20th Million Man March</title>
