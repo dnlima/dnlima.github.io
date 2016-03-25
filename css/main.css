@@ -45,8 +45,6 @@ body > header {
 	position: absolute;
 	top: 5px;
 	left: -10px;
-	width: 70px;
-	height: 70px;
 	z-index: 1;
 }
 .title > span {
