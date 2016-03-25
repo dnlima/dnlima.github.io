@@ -5,10 +5,12 @@ html {
 body {
   width: 100%;
   height: 100%;
+  min-width: 320px;
   margin: 0;
   padding: 0;
   background-color: #acf;
   font-family: "liberation sans",sans-serif;
+  font-size: 12pt;
   text-align: left;
 }
 a {
@@ -16,7 +18,7 @@ a {
   text-decoration: none;
 }
 a:hover {
-  text-decoration: underline;
+  color: #38f;
 }
 ul {
   padding-left: 1.5em;
@@ -35,27 +37,33 @@ body > header {
 .title {
   color: #36a;
   font-family: "linux libertine",serif;
-  font-size: 2.6em;
+  font-size: 42px;
   text-shadow: 1px 1px #037;
   text-decoration: none;
 }
-.title:hover {
-  text-decoration: none;
-}
-.title > small {
-  font-size: 0.6em;
-}
 .title > img {
-  vertical-align: bottom;
+	position: absolute;
+	top: 5px;
+	left: -10px;
+	width: 70px;
+	height: 70px;
+	z-index: 1;
+}
+.title > span {
+	position: absolute;
+	top: 0;
+	left: 65px;
 }
 body > nav {
   position: fixed;
   top: 2px;
   right: 0;
+  font-size: 18px;
 }
 body > nav > ul {
   margin: 8px 5px 0 0;
   padding: 0;
+  display: inline-block;
 }
 body > nav > ul > li {
   display: inline-block;
@@ -67,17 +75,16 @@ body > nav > ul > li:hover {
 }
 body > nav > ul > li > a {
   font-family: "linux biolinum";
-  font-size: 1.2em;
-  text-decoration: none;
 }
 body > nav > ul > li > a > img {
   vertical-align: middle;
 }
 body > footer {
-  font-size: 10px;
+  font-size: 8pt;
   position: fixed;
   bottom: 5px;
   width: 100%;
+  min-width: 320px;
   color: #234;
 }
 body > footer > div {
@@ -113,7 +120,7 @@ body > main {
 article {
   text-align: left;
   display: inline-block;
-  min-width: 500px;
+  min-width: 320px;
   max-width: 75%;
   margin: 0 auto 20px auto;
   padding: 1em;
@@ -126,28 +133,28 @@ article {
 article > header > h2 {
   margin: 0;
   font-family: "linux biolinum",serif;
-  font-size: 2em;
+  font-size: 1.8em;
 }
 article > header > h2 > a {
   color: #234;
 }
 article > header > span {
   color: #789;
-  font-size: 0.8em;
+  font-size: 0.75em;
 }
 article > .entry {
   padding-left: 2.5em;
-  font-family: "liberation serif", serif;
+  font-family: "linux libertine", serif;
 }
 article > footer {
   margin: 0;
   color: #789;
-  font-size: 0.8em;
+  font-size: 0.75em;
   text-align: right;
 }
 article > .ps {
   color: #789;
-  font-size: 0.8em;
+  font-size: 0.75em;
 }
 article img {
   max-width: 80%;
@@ -182,4 +189,19 @@ article img {
 }
 .archive .post-title a {
   color: #234;
+}
+@media (max-width: 480px) {
+	.hide-xs {
+		display: none;
+	}
+}
+@media (min-width: 480px) and (max-width: 640px) {
+	.hide-sm {
+		display: none;
+	}
+}
+@media (min-width: 640px) {
+	.hide-lg {
+		display: none;
+	}
 }
