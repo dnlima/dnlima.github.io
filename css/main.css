@@ -50,7 +50,7 @@ body > header {
 }
 body > nav {
   position: fixed;
-  top: 0;
+  top: 2px;
   right: 0;
 }
 body > nav > ul {
@@ -101,7 +101,7 @@ body > footer img {
 body > main {
   position: absolute;
   width: 100%;
-  top: 51px;
+  top: 55px;
   bottom: 42px;
   overflow: auto;
   text-align: center;

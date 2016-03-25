@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      var colors = ['red','yellow','green','cyan','blue','white','black'];
+      var i = 0;
+      function render() {
+        document.body.style.backgroundColor = colors[i++ % colors.length];
+        window.requestAnimationFrame(render);
+      };
+      render();
+    </script>
+  </body>
+</html>
