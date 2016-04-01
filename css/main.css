@@ -77,9 +77,12 @@ body > nav > ul > li > a {
 body > nav > ul > li > a > img {
 	vertical-align: middle;
 }
+main > footer {
+	min-width: 320px;
+	margin-top: 10px;
+}
 footer {
 	width: 100%;
-	min-width: 310px;
 	margin-bottom: 10px;
 	font-size: 7pt;
 	color: #234;
@@ -117,7 +120,7 @@ main {
 article {
 	text-align: left;
 	display: inline-block;
-	min-width: 320px;
+	/* min-width: 320px; */
 	max-width: 75%;
 	margin: 0 auto 20px auto;
 	padding: 1em;
@@ -126,6 +129,10 @@ article {
 	border: 1px solid #68c;
 	border-radius: 5px;
 	box-shadow: 3px 3px 3px 1px rgba(0,0,0,0.3);
+}
+article.home {
+	max-width: 320px;
+	margin: 10px;
 }
 article > header > h2 {
 	margin: 0;
@@ -140,7 +147,7 @@ article > header > span {
 	font-size: 0.75em;
 }
 article > .entry {
-	padding-left: 2.5em;
+	padding-left: 1.5em;
 	font-family: "linux libertine", serif;
 }
 article > footer {
@@ -159,9 +166,6 @@ article img {
 	display: block;
 	border: 1px solid #aaa;
 }
-.archives {
-	margin: 0 10px 10px 0;
-}
 .archives h3 {
 	color: #36a;
 	margin-bottom: 5px;
@@ -169,22 +173,27 @@ article img {
 .archive {
 	width: 100%;
 	border-spacing: 0;
-	margin-left: 10px;
-	border-left: 1px solid #acf;
-	border-bottom: 1px solid #acf;
 }
 .archive td {
 	border: 0;
 	margin: 0;
+	padding: 0 5px;
+	border-bottom: 1px dotted #8ae;
 	font-size: small;
-	padding: 0 5px 0 5px;
+	vertical-align: bottom;
 }
-.archive .post-title {
+.archive td:nth-child(2) {
+	border-left: 1px dotted #8ae;
+}
+.archive td.empty {
+	border: none;
+}
+.archive td.post-title {
 	font-family: "linux biolinum",serif;
 	font-size: 1.2em;
 	font-weight: bold;
 }
-.archive .post-title a {
+.archive td.post-title a {
 	color: #234;
 }
 @media (max-width: 480px) {
