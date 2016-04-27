@@ -90,10 +90,6 @@ footer > div {
 	width: 100%;
 	text-align: center;
 }
-.copyleft {
-	display: inline-block;
-	transform: scaleX(-1);
-}
 main {
 	position: absolute;
 	width: 100%;
