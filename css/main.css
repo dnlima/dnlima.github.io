@@ -9,7 +9,7 @@ body {
 	margin: 0;
 	padding: 0;
 	background-color: #acf;
-	font-family: "liberation sans",sans-serif;
+	font-family: 'Fira Sans', sans-serif;
 	font-size: 12pt;
 	text-align: left;
 }
@@ -32,8 +32,8 @@ hr {
 }
 .title {
 	color: #36a;
-	font-family: "linux libertine",serif;
-	font-size: 42px;
+	font-family: 'PT Serif', serif;
+	font-size: 38px;
 	text-shadow: 1px 1px #037;
 	text-decoration: none;
 }
@@ -72,34 +72,23 @@ body > nav > ul > li:hover {
 	background-color: #def;
 }
 body > nav > ul > li > a {
-	font-family: "linux biolinum";
+	font-family: 'Averia Sans Libre';
 }
 body > nav > ul > li > a > img {
 	vertical-align: middle;
 }
 main > footer {
-	min-width: 320px;
 	margin-top: 10px;
 }
 footer {
 	width: 100%;
 	margin-bottom: 10px;
-	font-size: 7pt;
+	font-size: 8pt;
 	color: #234;
 }
 footer > div {
 	width: 100%;
 	text-align: center;
-}
-footer > div * {
-	margin: 0;
-	text-align: left;
-	display: inline-block;
-	vertical-align: middle;
-}
-footer img {
-	opacity: 0.8;
-	margin-right: 5px;
 }
 .copyleft {
 	display: inline-block;
@@ -155,7 +144,7 @@ article.home {
 }
 article > header > h2 {
 	margin: 0;
-	font-family: "linux biolinum",serif;
+	font-family: 'Averia Sans Libre';
 	font-size: 1.8em;
 }
 article > header > h2 > a {
@@ -167,7 +156,7 @@ article > header > span {
 }
 article > .entry {
 	padding-left: 1.5em;
-	font-family: "linux libertine", serif;
+	font-family: 'PT Serif', serif;
 }
 article > footer {
 	margin: 0;
@@ -185,6 +174,23 @@ article img {
 	display: block;
 	border: 1px solid #aaa;
 }
+article pre {
+	padding: 0 5px 5px 5px;
+	background-color: #e0e7ff;
+	border: 2px solid #069;
+	border-left: 2em solid #069;
+	margin-right: 1em;
+	overflow-x: auto;
+}
+code {
+	color: #023;
+	background-color: #e0e7ff;
+	font-family: 'Fira Mono', monospace;
+	font-size: 0.8em;
+}
+p > code {
+	padding: 1px 3px;
+}
 .archives h3 {
 	color: #36a;
 	margin-bottom: 5px;
@@ -198,7 +204,7 @@ article img {
 	margin: 0;
 	padding: 2px 5px;
 	border-bottom: 1px dotted #8ae;
-	font-family: 'liberation sans', sans-serif;
+	font-family: 'Fira Sans', sans-serif;
 	font-size: 0.75em;
 	vertical-align: baseline;
 }
@@ -206,12 +212,13 @@ article img {
 	border: none;
 }
 .archive td.post-date {
+	color: #789;
 	border-left: 1px dotted #8ae;
+	font-size: 0.9em;
 }
 .archive td.post-title {
-	font-family: "linux biolinum",serif;
+	font-family: 'Averia Sans Libre';
 	font-size: 1em;
-	font-weight: bold;
 }
 .archive td.post-title a {
 	color: #234;
