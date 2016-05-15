@@ -4,12 +4,31 @@
 	<title>tinyhub.tk</title>
 	<link href="/atom.xml" rel="self"/>
 	<link href="/"/>
-	<updated>2016-05-02T20:54:22-03:00</updated>
+	<updated>2016-05-15T10:34:19-03:00</updated>
 	<id>http://tinyhub.tk//</id>
 	<author>
 		<name>Daniel Lima</name>
 	</author>
 
+	
+	<entry>
+		<title>Optiboot for Nanos</title>
+		<link href="/meta/2016/05/15/optiboot-for-nanos/"/>
+		<updated>2016-05-15T00:00:00-03:00</updated>
+		<id>tinyhub.tk/meta/2016/05/15/optiboot-for-nanos</id>
+		<content type="html">&lt;p&gt;Optiboot is a smaller and faster bootloader for Arduino, which is already used for Arduino Unos in recent versions of the standard Arduino IDE. Unfortunately the same cannot be said for the other Arduino Boards, so in this article we will use a spare Arduino Uno as an ISP programmer and burn the optiboot bootloader into an Arduino Nano. Let&#39;s go.&lt;/p&gt;
+
+&lt;p&gt;First, we need to upload the ArduinoISP sketch to the Uno board (to use it as a programmer). Connect the Arduino Uno to the USB port. Open the menu &lt;strong&gt;File &gt; Examples &gt; 11.ArduinoISP &gt; ArduinoISP&lt;/strong&gt;, then select the Uno board (&lt;strong&gt;Tools &gt; Board &gt; Arduino/Genuino Uno&lt;/strong&gt;) and its COM port (e.g. &lt;strong&gt;Tools &gt; Port &gt; COM3&lt;/strong&gt;). Finally, click &lt;strong&gt;Sketch &gt; Upload&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now we need to install the Optiboot boards in the Arduino IDE. In the menu &lt;strong&gt;File &gt; Preferences&lt;/strong&gt;, copy and paste the URL &lt;code&gt;https://github.com/Optiboot/optiboot/releases/download/v6.2/package_optiboot_optiboot-additional_index.json&lt;/code&gt; to the &lt;strong&gt;Additional Boards Manager URLs&lt;/strong&gt; text box, then click OK and go to &lt;strong&gt;Tools &gt; Board &gt; Boards Manager...&lt;/strong&gt; where you can search and install the &lt;strong&gt;Optiboot 6.2&lt;/strong&gt; package.&lt;/p&gt;
+
+&lt;p&gt;When the process is complete, connect the ICSP Nano pins to the Uno board: pins 11, 12, 13, 5V and GND of the Uno to the respective pins in the Nano; and pin 10 of the Uno to the RST (reset) pin in the Nano.&lt;/p&gt;
+
+&lt;p&gt;After this, restart the Arduino IDE, change the board type to &lt;strong&gt;Tools &gt; Board &gt; Optiboot on 32-pin CPUs&lt;/strong&gt;, the &lt;strong&gt;Tools &gt; Port&lt;/strong&gt; to the Uno serial port, the programmer to &lt;strong&gt;Tools &gt; Programmer &gt; Arduino as ISP&lt;/strong&gt; and click &lt;strong&gt;Tools &gt; Burn Bootloader&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now that the Nano has the Optiboot bootloader, you can disconnect the Uno and use the Nano normally. Just remember to set the board to one of the &lt;strong&gt;Optiboot&lt;/strong&gt; options and change &lt;strong&gt;Tools &gt; Port&lt;/strong&gt; to the Nano COM port before uploading your sketch.&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>YCM and MSYS2</title>

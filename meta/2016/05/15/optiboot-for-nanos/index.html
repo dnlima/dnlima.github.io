@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Optiboot for Nanos | tinyhub.tk</title>
+    <meta name="author" content="Daniel Lima">
+    <meta name="description" content="A hub for computing projects, ideas and news.">
+    <meta name="keywords" content="">
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/atom.xml">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Fira+Mono'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Fira+Sans'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Averia+Sans+Libre:700'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=PT+Serif'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=PT+Serif:400italic'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=PT+Serif:700'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body>
+    <header>
+      <a class="title" href="/">
+        <img width="70" height="75" src="/img/logo.png">
+        <span>tinyhub<small>.tk</small></span>
+      </a>
+    </header>
+    <nav>
+      <ul>
+        <li><a href="/">
+            <i class='hide-xs hide-lg fa fa-home'></i>
+            <span class='hide-xs hide-sm'>home</span>
+        </a></li>
+        <li><a href="/blobs">
+            <i class='hide-xs hide-lg fa fa-commenting'></i>
+            <span class='hide-xs hide-sm'>blobs</span>
+        </a></li>
+        <li><a href="/research">
+            <i class='hide-xs hide-lg fa fa-bar-chart'></i>
+            <span class='hide-xs hide-sm'>research</span>
+        </a></li>
+        <li><a href="/archive">
+            <i class='hide-xs hide-lg fa fa-folder-open'></i>
+            <span class='hide-xs hide-sm'>archive</span>
+        </a></li>
+        <li><a href="/about">
+            <i class='hide-xs hide-lg fa fa-user'></i>
+            <span class='hide-xs hide-sm'>about</span>
+        </a></li>
+      </ul>
+      <ul>
+        <li><a href="mailto:mail@tinyhub.tk"><i class='fa fa-envelope'></i></a></li>
+        <li><a href="/atom.xml"><i class='fa fa-rss-square'></i></a></li>
+      </ul>
+    </nav>
+    <main>
+      <article>
+  <header>
+    <h2>Optiboot for Nanos</h2>
+    <hr />
+    <span><i class="fa fa-calendar"></i> <time datetime="2016-05-15">Sunday, May 15th, 2016</time></span>
+    <span class="category"> on <i class="fa fa-tag"></i> meta</span>
+  </header>
+  <div class="entry"><p>Optiboot is a smaller and faster bootloader for Arduino, which is already used for Arduino Unos in recent versions of the standard Arduino IDE. Unfortunately the same cannot be said for the other Arduino Boards, so in this article we will use a spare Arduino Uno as an ISP programmer and burn the optiboot bootloader into an Arduino Nano. Let's go.</p>
+
+<p>First, we need to upload the ArduinoISP sketch to the Uno board (to use it as a programmer). Connect the Arduino Uno to the USB port. Open the menu <strong>File > Examples > 11.ArduinoISP > ArduinoISP</strong>, then select the Uno board (<strong>Tools > Board > Arduino/Genuino Uno</strong>) and its COM port (e.g. <strong>Tools > Port > COM3</strong>). Finally, click <strong>Sketch > Upload</strong>.</p>
+
+<p>Now we need to install the Optiboot boards in the Arduino IDE. In the menu <strong>File > Preferences</strong>, copy and paste the URL <code>https://github.com/Optiboot/optiboot/releases/download/v6.2/package_optiboot_optiboot-additional_index.json</code> to the <strong>Additional Boards Manager URLs</strong> text box, then click OK and go to <strong>Tools > Board > Boards Manager...</strong> where you can search and install the <strong>Optiboot 6.2</strong> package.</p>
+
+<p>When the process is complete, connect the ICSP Nano pins to the Uno board: pins 11, 12, 13, 5V and GND of the Uno to the respective pins in the Nano; and pin 10 of the Uno to the RST (reset) pin in the Nano.</p>
+
+<p>After this, restart the Arduino IDE, change the board type to <strong>Tools > Board > Optiboot on 32-pin CPUs</strong>, the <strong>Tools > Port</strong> to the Uno serial port, the programmer to <strong>Tools > Programmer > Arduino as ISP</strong> and click <strong>Tools > Burn Bootloader</strong>.</p>
+
+<p>Now that the Nano has the Optiboot bootloader, you can disconnect the Uno and use the Nano normally. Just remember to set the board to one of the <strong>Optiboot</strong> options and change <strong>Tools > Port</strong> to the Nano COM port before uploading your sketch.</p>
+</div>
+  <footer>
+    <span class="author"><i class="icon-user"></i> Daniel Lima</span>
+  </footer>
+  <hr />
+  
+</article>
+
+      <footer>
+        <div>
+          This site is published under the <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons BY 4.0</a> license &copy; <time>2015-2016</time> tinyhub.tk
+        </div>
+      </footer>
+    </main>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-68320885-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>
