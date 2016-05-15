@@ -4,7 +4,7 @@
 	<title>tinyhub.tk</title>
 	<link href="/atom.xml" rel="self"/>
 	<link href="/"/>
-	<updated>2016-05-15T10:34:19-03:00</updated>
+	<updated>2016-05-15T10:37:22-03:00</updated>
 	<id>http://tinyhub.tk//</id>
 	<author>
 		<name>Daniel Lima</name>
@@ -13,9 +13,9 @@
 	
 	<entry>
 		<title>Optiboot for Nanos</title>
-		<link href="/meta/2016/05/15/optiboot-for-nanos/"/>
+		<link href="/blog/2016/05/15/optiboot-for-nanos/"/>
 		<updated>2016-05-15T00:00:00-03:00</updated>
-		<id>tinyhub.tk/meta/2016/05/15/optiboot-for-nanos</id>
+		<id>tinyhub.tk/blog/2016/05/15/optiboot-for-nanos</id>
 		<content type="html">&lt;p&gt;Optiboot is a smaller and faster bootloader for Arduino, which is already used for Arduino Unos in recent versions of the standard Arduino IDE. Unfortunately the same cannot be said for the other Arduino Boards, so in this article we will use a spare Arduino Uno as an ISP programmer and burn the optiboot bootloader into an Arduino Nano. Let&#39;s go.&lt;/p&gt;
 
 &lt;p&gt;First, we need to upload the ArduinoISP sketch to the Uno board (to use it as a programmer). Connect the Arduino Uno to the USB port. Open the menu &lt;strong&gt;File &gt; Examples &gt; 11.ArduinoISP &gt; ArduinoISP&lt;/strong&gt;, then select the Uno board (&lt;strong&gt;Tools &gt; Board &gt; Arduino/Genuino Uno&lt;/strong&gt;) and its COM port (e.g. &lt;strong&gt;Tools &gt; Port &gt; COM3&lt;/strong&gt;). Finally, click &lt;strong&gt;Sketch &gt; Upload&lt;/strong&gt;.&lt;/p&gt;
