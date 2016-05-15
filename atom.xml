@@ -4,7 +4,7 @@
 	<title>tinyhub.tk</title>
 	<link href="/atom.xml" rel="self"/>
 	<link href="/"/>
-	<updated>2016-05-15T10:37:22-03:00</updated>
+	<updated>2016-05-15T12:17:10-03:00</updated>
 	<id>http://tinyhub.tk//</id>
 	<author>
 		<name>Daniel Lima</name>
@@ -22,7 +22,9 @@
 
 &lt;p&gt;Now we need to install the Optiboot boards in the Arduino IDE. In the menu &lt;strong&gt;File &gt; Preferences&lt;/strong&gt;, copy and paste the URL &lt;code&gt;https://github.com/Optiboot/optiboot/releases/download/v6.2/package_optiboot_optiboot-additional_index.json&lt;/code&gt; to the &lt;strong&gt;Additional Boards Manager URLs&lt;/strong&gt; text box, then click OK and go to &lt;strong&gt;Tools &gt; Board &gt; Boards Manager...&lt;/strong&gt; where you can search and install the &lt;strong&gt;Optiboot 6.2&lt;/strong&gt; package.&lt;/p&gt;
 
-&lt;p&gt;When the process is complete, connect the ICSP Nano pins to the Uno board: pins 11, 12, 13, 5V and GND of the Uno to the respective pins in the Nano; and pin 10 of the Uno to the RST (reset) pin in the Nano.&lt;/p&gt;
+&lt;p&gt;When the process is complete, connect the ICSP Nano pins to the Uno board: pins MOSI (11), MISO (12), SCK (13), 5V and GND of the Uno to the respective pins in the Nano; and pin 10 of the Uno to the RST (reset) pin in the Nano.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2016/arduino-icsp.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;After this, restart the Arduino IDE, change the board type to &lt;strong&gt;Tools &gt; Board &gt; Optiboot on 32-pin CPUs&lt;/strong&gt;, the &lt;strong&gt;Tools &gt; Port&lt;/strong&gt; to the Uno serial port, the programmer to &lt;strong&gt;Tools &gt; Programmer &gt; Arduino as ISP&lt;/strong&gt; and click &lt;strong&gt;Tools &gt; Burn Bootloader&lt;/strong&gt;.&lt;/p&gt;
 
