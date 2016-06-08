@@ -72,7 +72,7 @@ body > nav > ul > li:hover {
 	background-color: #def;
 }
 body > nav > ul > li > a {
-	font-family: 'Averia Sans Libre';
+	font-family: 'Averia Sans Libre', sans-serif;
 }
 body > nav > ul > li > a > img {
 	vertical-align: middle;
@@ -140,7 +140,7 @@ article.home {
 }
 article > header > h2 {
 	margin: 0;
-	font-family: 'Averia Sans Libre';
+	font-family: 'Averia Sans Libre', sans-serif;
 	font-size: 1.8em;
 }
 article > header > h2 > a {
@@ -213,7 +213,7 @@ p > code {
 	font-size: 0.9em;
 }
 .archive td.post-title {
-	font-family: 'Averia Sans Libre';
+	font-family: 'Averia Sans Libre', sans-serif;
 	font-size: 1em;
 }
 .archive td.post-title a {
