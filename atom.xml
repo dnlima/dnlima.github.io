@@ -4,12 +4,56 @@
 	<title>tinyhub.tk</title>
 	<link href="/atom.xml" rel="self"/>
 	<link href="/"/>
-	<updated>2016-06-08T20:06:09-03:00</updated>
+	<updated>2016-06-22T03:22:28-03:00</updated>
 	<id>http://tinyhub.tk//</id>
 	<author>
 		<name>Daniel Lima</name>
 	</author>
 
+	
+	<entry>
+		<title>Managing my Luas</title>
+		<link href="/blog/2016/06/22/luas-manager/"/>
+		<updated>2016-06-22T00:00:00-03:00</updated>
+		<id>tinyhub.tk/blog/2016/06/22/luas-manager</id>
+		<content type="html">&lt;p&gt;One of my favorite programming languages is &lt;a href=&quot;http://lua.org/&quot;&gt;Lua&lt;/a&gt;, a scripting language as
+old as Python and Ruby, with a much cleaner and regular syntax, the simplest C FFI that someone
+could find, and the impressive &lt;a href=&quot;http://luajit.org/&quot;&gt;LuaJIT&lt;/a&gt; speed. So I use it as much as I can.&lt;/p&gt;
+
+&lt;p&gt;But Lua has a much smaller community and is still developing some parts of its ecosystem,
+and so I could not find an easy and simple environment manager like rbenv or rvm for Ruby.
+So I did one! &lt;a href=&quot;https://github.com/limadm/luas&quot;&gt;Luas&lt;/a&gt; is the simplest shell script I could
+make in a hurry to deploy an application today to one of my customers, check it out:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone github.com:limadm/luas
+$ cd luas
+$ sudo ./install.sh
+$ luas list
+Legend:
+   available
+ - installed
+ * active
+
+Versions:
+   lua-5.3.3
+   lua-5.2.4
+ - lua-5.1.5
+ - luajit-2.1.0-beta2
+   luajit-2.1.0-beta1
+   luajit-2.0.4
+
+$ luas install luajit-2.1.0-beta2
+      . . . (lots of makefile output here) . . .
+$ luas use luajit-2.1.0-beta2
+$ luajit
+LuaJIT 2.1.0-beta2 -- Copyright (C) 2005-2016 Mike Pall. http://luajit.org/
+JIT: ON SSE2 SSE3 SSE4.1 fold cse dce fwd dse narrow loop abc sink fuse
+&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now I can have as many moons as I want! =]&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>Optiboot for Nanos</title>
