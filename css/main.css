@@ -120,13 +120,13 @@ article div.dateflag {
 	position: absolute;
 	top: 0;
 	right: 15px;
-	width: 2em;
-	color: #546;
-	background-color: #edf;
-	border: 1px solid #cbd;
+	width: 32px;
+	color: #962;
+	background-color: #ffd;
+	border: 1px solid #dca;
 	border-top: none;
-	border-radius: 0 0 5px 5px;
 	text-align: center;
+	padding-bottom: 3px;
 }
 article div.dateflag .month {
 	font-size: 0.7em;
