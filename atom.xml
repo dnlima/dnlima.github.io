@@ -4,7 +4,7 @@
 	<title>tinyhub.tk</title>
 	<link href="/atom.xml" rel="self"/>
 	<link href="/"/>
-	<updated>2016-06-27T22:46:13-03:00</updated>
+	<updated>2016-06-27T22:51:57-03:00</updated>
 	<id>http://tinyhub.tk//</id>
 	<author>
 		<name>Daniel Lima</name>
@@ -22,7 +22,7 @@ could find, and the impressive &lt;a href=&quot;http://luajit.org/&quot;&gt;LuaJ
 
 &lt;p&gt;But Lua has a much smaller community and is still developing some parts of its ecosystem,
 and so I could not find an easy and simple environment manager like rbenv or rvm for Ruby
-to keep LuaRocks packages away from conflicting with each other.
+to keep &lt;a href=&quot;http://luarocks.org/&quot;&gt;LuaRocks&lt;/a&gt; packages away from conflicting with each other.
 So I did one! &lt;a href=&quot;https://github.com/limadm/luas&quot;&gt;Luas&lt;/a&gt; is the simplest shell script I could
 make in a hurry to deploy an application today to one of my customers, check it out:&lt;/p&gt;
 
