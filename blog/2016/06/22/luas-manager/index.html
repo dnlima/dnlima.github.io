@@ -65,7 +65,7 @@ could find, and the impressive <a href="http://luajit.org/">LuaJIT</a> speed. So
 
 <p>But Lua has a much smaller community and is still developing some parts of its ecosystem,
 and so I could not find an easy and simple environment manager like rbenv or rvm for Ruby
-to keep packages away from conflicting with each other.
+to keep LuaRocks packages away from conflicting with each other.
 So I did one! <a href="https://github.com/limadm/luas">Luas</a> is the simplest shell script I could
 make in a hurry to deploy an application today to one of my customers, check it out:</p>
 
@@ -89,26 +89,15 @@ Versions:
 $ luas install luajit-2.1.0-beta2
       . . . (lots of makefile output here) . . .
 $ luas use luajit-2.1.0-beta2
-$ luas list
-Legend:
-   available
- - installed
- * active
-
-Versions:
-   lua-5.3.3
-   lua-5.2.4
-   lua-5.1.5
- * luajit-2.1.0-beta2
-   luajit-2.1.0-beta1
-   luajit-2.0.4
-
 $ which luajit
 ~/.luas/luajit-2.1.0-beta2/bin/luajit
+$ luarocks install penlight
 $ luajit
 LuaJIT 2.1.0-beta2 -- Copyright (C) 2005-2016 Mike Pall. http://luajit.org/
 JIT: ON SSE2 SSE3 SSE4.1 fold cse dce fwd dse narrow loop abc sink fuse
-&gt;
+&gt; require 'pl'
+&gt; = seq.reduce('+', seq.range(1,100))
+5050
 </code></pre>
 
 <p>Now I can have as many moons as I want! =]</p>
