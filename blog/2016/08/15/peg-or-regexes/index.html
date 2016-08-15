@@ -76,7 +76,7 @@
 
 <p><code>/(\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2})\.(\d+)Z/</code></p>
 
-<p>Which is perfectly fine, but demands a careful examination to write and read. One day I thought that a more descriptive way would be interesting, if not desirable. Then I found <a href="http://www.inf.puc-rio.br/~roberto/docs/peg.pdf">Parsing Expression Grammars</a>, which is a lot more closer to the <a href="https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_Form">Backus-Naur Form</a> and provides more structured syntax. For example, the pattern for the previous regex could be written as:</p>
+<p>Which is perfectly fine, but demands a careful examination to write and read. One day I thought that a more descriptive way would be interesting, if not desirable. Then I found the module <a href="ww.inf.puc-rio.br/~roberto/lpeg/re.html">LPeg.re</a>, implemented with <a href="http://www.inf.puc-rio.br/~roberto/docs/peg.pdf">Parsing Expression Grammars</a>, which is a lot more closer to the <a href="https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_Form">Backus-Naur Form</a> and provides more structured syntax. For example, the pattern for the previous regex could be written as:</p>
 
 <pre><code class="">datetime &lt;- date 'T' time 'Z'
 date &lt;- {%d^4} '-' {%d^2} '-' {%d^2}

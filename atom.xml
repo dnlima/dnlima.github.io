@@ -4,7 +4,7 @@
 	<title>tinyhub.tk</title>
 	<link href="/atom.xml" rel="self"/>
 	<link href="/"/>
-	<updated>2016-08-15T18:53:42-03:00</updated>
+	<updated>2016-08-15T19:06:22-03:00</updated>
 	<id>http://tinyhub.tk//</id>
 	<author>
 		<name>Daniel Lima</name>
@@ -33,7 +33,7 @@
 
 &lt;p&gt;&lt;code&gt;/(\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2})\.(\d+)Z/&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;Which is perfectly fine, but demands a careful examination to write and read. One day I thought that a more descriptive way would be interesting, if not desirable. Then I found &lt;a href=&quot;http://www.inf.puc-rio.br/~roberto/docs/peg.pdf&quot;&gt;Parsing Expression Grammars&lt;/a&gt;, which is a lot more closer to the &lt;a href=&quot;https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_Form&quot;&gt;Backus-Naur Form&lt;/a&gt; and provides more structured syntax. For example, the pattern for the previous regex could be written as:&lt;/p&gt;
+&lt;p&gt;Which is perfectly fine, but demands a careful examination to write and read. One day I thought that a more descriptive way would be interesting, if not desirable. Then I found the module &lt;a href=&quot;ww.inf.puc-rio.br/~roberto/lpeg/re.html&quot;&gt;LPeg.re&lt;/a&gt;, implemented with &lt;a href=&quot;http://www.inf.puc-rio.br/~roberto/docs/peg.pdf&quot;&gt;Parsing Expression Grammars&lt;/a&gt;, which is a lot more closer to the &lt;a href=&quot;https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_Form&quot;&gt;Backus-Naur Form&lt;/a&gt; and provides more structured syntax. For example, the pattern for the previous regex could be written as:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&quot;&quot;&gt;datetime &amp;lt;- date &#39;T&#39; time &#39;Z&#39;
 date &amp;lt;- {%d^4} &#39;-&#39; {%d^2} &#39;-&#39; {%d^2}
