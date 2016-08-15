@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>PEG or Regex? | tinyhub.tk</title>
+    <meta name="author" content="Daniel Lima">
+    <meta name="description" content="A hub for computing projects, ideas and news.">
+    <meta name="keywords" content="">
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/atom.xml">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Fira+Mono'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Fira+Sans'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Averia+Sans+Libre:700'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=PT+Serif'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=PT+Serif:400italic'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=PT+Serif:700'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body>
+    <header>
+      <a class="title" href="/">
+        <img width="70" height="75" src="/img/logo.png">
+        <span>tinyhub<small>.tk</small></span>
+      </a>
+    </header>
+    <nav>
+      <ul>
+        <li><a href="/">
+            <i class='hide-xs hide-lg fa fa-home'></i>
+            <span class='hide-xs hide-sm'>home</span>
+        </a></li>
+        <li><a href="/blobs">
+            <i class='hide-xs hide-lg fa fa-commenting'></i>
+            <span class='hide-xs hide-sm'>blobs</span>
+        </a></li>
+        <li><a href="/research">
+            <i class='hide-xs hide-lg fa fa-bar-chart'></i>
+            <span class='hide-xs hide-sm'>research</span>
+        </a></li>
+        <li><a href="/archive">
+            <i class='hide-xs hide-lg fa fa-folder-open'></i>
+            <span class='hide-xs hide-sm'>archive</span>
+        </a></li>
+        <li><a href="/about">
+            <i class='hide-xs hide-lg fa fa-user'></i>
+            <span class='hide-xs hide-sm'>about</span>
+        </a></li>
+      </ul>
+      <ul>
+        <li><a href="mailto:mail@tinyhub.tk"><i class='fa fa-envelope'></i></a></li>
+        <li><a href="/atom.xml"><i class='fa fa-rss-square'></i></a></li>
+      </ul>
+    </nav>
+    <main>
+      <article>
+  <header>
+    <h2>PEG or Regex?</h2>
+    <hr />
+    <span><i class="fa fa-calendar"></i> <time datetime="2016-08-15">Monday, August 15th, 2016</time></span>
+    <span class="category"> on <i class="fa fa-tag"></i> blog</span>
+  </header>
+  <div class="entry"><p>Most programmers know (or should know) regexes (Regular Expressions), it is perhaps the most used string parsing and searching tool. Several implementations and extensions exist, and can be found by default in OS and programming languages. Basically, it is a language that allows us to describe other small languages with a regular grammar, and use a computer program to search for patterns and/or split pieces of a given string that follows that grammar.</p>
+
+<p>Some basic examples:</p>
+
+<ol>
+<li><code>/ok/</code> matches any string with <code>ok</code> inside, that is, <code>aok</code>, <code>not ok</code>, <code>okay</code>;</li>
+<li><code>/^ok/</code> matches any string starting with <code>ok</code>, e.g. <code>ok2</code>, <code>okay</code>;</li>
+<li><code>/^ok$/</code> matches <code>ok</code> exactly;</li>
+<li><code>/^ok = (true|false)$/</code> matches <code>ok = true</code> or <code>ok = false</code> exactly, returning the <em>capture group</em> in parethesis;</li>
+<li><code>/^version = (\d\.\d+)$/</code> matches <code>ok =</code> plus one digit, a point and one or more digits (<code>\d</code> is a digit, <code>\.</code> is the point, and <code>+</code> is one or more repetitions of the preceding expression), so we can capture a floating point number written just after version.</li>
+</ol>
+
+
+<p>Then we see that Regular Expressions a offer pretty concise way of parsing text, but the problem is when we need more complex and longer patterns. For example, what about parsing all components (year, month, etc...) of an ISO datetime string, e.g., <code>2016-08-15T17:51:52.291Z</code>? Then we need something like:</p>
+
+<p><code>/(\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2})\.(\d+)Z/</code></p>
+
+<p>Which is perfectly fine, but demands a careful examination to write and read. One day I thought that a more descriptive way would be interesting, if not desirable. Then I found <a href="http://www.inf.puc-rio.br/~roberto/docs/peg.pdf">Parsing Expression Grammars</a>, which is a lot more closer to the <a href="https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_Form">Backus-Naur Form</a> and provides more structured syntax. For example, the pattern for the previous regex could be written as:</p>
+
+<pre><code class="">datetime &lt;- date 'T' time 'Z'
+date &lt;- {%d^4} '-' {%d^2} '-' {%d^2}
+time &lt;- {%d^2} ':' {%d^2} ':' {%d^2 ('.' {%d+})?}
+</code></pre>
+
+<p>Here <code>%d</code> is a digit, <code>{}</code> denote capture groups and <code>^n</code> denote <em>n</em> repetitions of the preceding pattern.</p>
+
+<p>Even though it is longer, it makes possible to separate and name sub-patterns, structuring the source code a lot more -- much like how early macro assemblers evolved into structured programming languages. PEG also offers text transformation and returning objects from captures, sort of an advanced <code>awk</code> or <code>sed</code> integrated in the library, but that is for another day. =]</p>
+</div>
+  <footer>
+    <span class="author"><i class="icon-user"></i> Daniel Lima</span>
+  </footer>
+  <hr />
+  
+</article>
+
+      <footer>
+        <div>
+          This site is published under the <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons BY 4.0</a> license &copy; <time>2015-2016</time> tinyhub.tk
+        </div>
+      </footer>
+    </main>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-68320885-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>

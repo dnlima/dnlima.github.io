@@ -4,12 +4,47 @@
 	<title>tinyhub.tk</title>
 	<link href="/atom.xml" rel="self"/>
 	<link href="/"/>
-	<updated>2016-06-27T23:45:44-03:00</updated>
+	<updated>2016-08-15T18:50:19-03:00</updated>
 	<id>http://tinyhub.tk//</id>
 	<author>
 		<name>Daniel Lima</name>
 	</author>
 
+	
+	<entry>
+		<title>PEG or Regex?</title>
+		<link href="/blog/2016/08/15/peg-or-regexes/"/>
+		<updated>2016-08-15T00:00:00-03:00</updated>
+		<id>tinyhub.tk/blog/2016/08/15/peg-or-regexes</id>
+		<content type="html">&lt;p&gt;Most programmers know (or should know) regexes (Regular Expressions), it is perhaps the most used string parsing and searching tool. Several implementations and extensions exist, and can be found by default in OS and programming languages. Basically, it is a language that allows us to describe other small languages with a regular grammar, and use a computer program to search for patterns and/or split pieces of a given string that follows that grammar.&lt;/p&gt;
+
+&lt;p&gt;Some basic examples:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;/ok/&lt;/code&gt; matches any string with &lt;code&gt;ok&lt;/code&gt; inside, that is, &lt;code&gt;aok&lt;/code&gt;, &lt;code&gt;not ok&lt;/code&gt;, &lt;code&gt;okay&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/^ok/&lt;/code&gt; matches any string starting with &lt;code&gt;ok&lt;/code&gt;, e.g. &lt;code&gt;ok2&lt;/code&gt;, &lt;code&gt;okay&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/^ok$/&lt;/code&gt; matches &lt;code&gt;ok&lt;/code&gt; exactly;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/^ok = (true|false)$/&lt;/code&gt; matches &lt;code&gt;ok = true&lt;/code&gt; or &lt;code&gt;ok = false&lt;/code&gt; exactly, returning the &lt;em&gt;capture group&lt;/em&gt; in parethesis;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/^version = (\d\.\d+)$/&lt;/code&gt; matches &lt;code&gt;ok =&lt;/code&gt; plus one digit, a point and one or more digits (&lt;code&gt;\d&lt;/code&gt; is a digit, &lt;code&gt;\.&lt;/code&gt; is the point, and &lt;code&gt;+&lt;/code&gt; is one or more repetitions of the preceding expression), so we can capture a floating point number written just after version.&lt;/li&gt;
+&lt;/ol&gt;
+
+
+&lt;p&gt;Then we see that Regular Expressions a offer pretty concise way of parsing text, but the problem is when we need more complex and longer patterns. For example, what about parsing all components (year, month, etc...) of an ISO datetime string, e.g., &lt;code&gt;2016-08-15T17:51:52.291Z&lt;/code&gt;? Then we need something like:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;/(\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2})\.(\d+)Z/&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Which is perfectly fine, but demands a careful examination to write and read. One day I thought that a more descriptive way would be interesting, if not desirable. Then I found &lt;a href=&quot;http://www.inf.puc-rio.br/~roberto/docs/peg.pdf&quot;&gt;Parsing Expression Grammars&lt;/a&gt;, which is a lot more closer to the &lt;a href=&quot;https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_Form&quot;&gt;Backus-Naur Form&lt;/a&gt; and provides more structured syntax. For example, the pattern for the previous regex could be written as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;&quot;&gt;datetime &amp;lt;- date &#39;T&#39; time &#39;Z&#39;
+date &amp;lt;- {%d^4} &#39;-&#39; {%d^2} &#39;-&#39; {%d^2}
+time &amp;lt;- {%d^2} &#39;:&#39; {%d^2} &#39;:&#39; {%d^2 (&#39;.&#39; {%d+})?}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here &lt;code&gt;%d&lt;/code&gt; is a digit, &lt;code&gt;{}&lt;/code&gt; denote capture groups and &lt;code&gt;^n&lt;/code&gt; denote &lt;em&gt;n&lt;/em&gt; repetitions of the preceding pattern.&lt;/p&gt;
+
+&lt;p&gt;Even though it is longer, it makes possible to separate and name sub-patterns, structuring the source code a lot more -- much like how early macro assemblers evolved into structured programming languages. PEG also offers text transformation and returning objects from captures, sort of an advanced &lt;code&gt;awk&lt;/code&gt; or &lt;code&gt;sed&lt;/code&gt; integrated in the library, but that is for another day. =]&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>Managing my Luas</title>
