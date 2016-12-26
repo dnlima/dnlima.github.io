@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Nixies + Raspberry Pi | tinyhub.tk</title>
+    <meta name="author" content="Daniel Lima">
+    <meta name="description" content="A hub for computing projects, ideas and news.">
+    <meta name="keywords" content="">
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/atom.xml">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Fira+Mono'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Fira+Sans'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Averia+Sans+Libre:700'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=PT+Serif'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=PT+Serif:400italic'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=PT+Serif:700'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body>
+    <header>
+      <a class="title" href="/">
+        <img width="70" height="75" src="/img/logo.png">
+        <span>tinyhub<small>.tk</small></span>
+      </a>
+    </header>
+    <nav>
+      <ul>
+        <li><a href="/">
+            <i class='hide-xs hide-lg fa fa-home'></i>
+            <span class='hide-xs hide-sm'>home</span>
+        </a></li>
+        <li><a href="/blobs">
+            <i class='hide-xs hide-lg fa fa-commenting'></i>
+            <span class='hide-xs hide-sm'>blobs</span>
+        </a></li>
+        <li><a href="/research">
+            <i class='hide-xs hide-lg fa fa-bar-chart'></i>
+            <span class='hide-xs hide-sm'>research</span>
+        </a></li>
+        <li><a href="/archive">
+            <i class='hide-xs hide-lg fa fa-folder-open'></i>
+            <span class='hide-xs hide-sm'>archive</span>
+        </a></li>
+        <li><a href="/about">
+            <i class='hide-xs hide-lg fa fa-user'></i>
+            <span class='hide-xs hide-sm'>about</span>
+        </a></li>
+      </ul>
+      <ul>
+        <li><a href="mailto:mail@tinyhub.tk"><i class='fa fa-envelope'></i></a></li>
+        <li><a href="/atom.xml"><i class='fa fa-rss-square'></i></a></li>
+      </ul>
+    </nav>
+    <main>
+      <article>
+  <header>
+    <h2>Nixies + Raspberry Pi</h2>
+    <hr />
+    <span><i class="fa fa-calendar"></i> <time datetime="2016-12-25">Sunday, December 25th, 2016</time></span>
+    <span class="category"> on <i class="fa fa-tag"></i> blog</span>
+  </header>
+  <div class="entry"><p>A client requested my help to make various sorts of transitions for his steampunk nixie tube display, controlled by a Raspberry Pi v2. He asked me to code in Python, if possible. So, is python fast enough for software PWM? Let's try.</p>
+
+<p>Computer-generated animation is an optical illusion, which deceives the human eye to perceive motion by displaying a sequence of motionless frames faster than the eye can see. A refresh rate of 24 <em>frames per second</em> (fps) is used in movies, and is an acceptable minimum for frames taken with nitrate film photography. The static bitmapped scenes generated with a computer have sharp edges, looking much more like a high-speed photo. This makes it easier for the eye to perceive each individual frame, so computer displays use a minimum of 60 fps for a smooth animation effect. If we are displaying 60 frames per one second, it means that each frame has 1/60 of this one second, approximately 16.7 milliseconds.</p>
+
+<p>Now, to simulate the impression of a fading digit, we should be able to dim the amount of brightness in <em>each</em> frame. This is easy if we use a technique called <a href="https://en.wikipedia.org/wiki/Pulse-width_modulation">pulse-width modulation</a> (PWM). Basically, if each frame is displayed for <em>t</em> = 16.7ms, we switch the light on for some time (called <em>t<sub>on</sub></em>), and then we switch it off for the rest of the frame (<em>t<sub>off</sub> = t - t<sub>on</sub></em>), so the average power is proportional to <em>t<sub>on</sub> / t</em> %. To implement this routine we need two components: a GPIO driver function and a sleep function, and these two functions need to complete in our frame deadline (16.7ms). To test <code>time.sleep</code> accuracy, I used this snippet to do 100 loops of 100 sleeps of 0.1ms and take statistical measures. Each loop should take 100×0.1ms = 10ms.</p>
+
+<pre><code>#!/bin/env python2
+import time
+import math
+
+x = []
+for i in xrange(100):
+    t = time.time()
+    for j in xrange(100):
+        time.sleep(0.0001)
+    t = time.time() - t
+    x.append(t)
+
+avg = sum(x) / 100
+devsq = [ (xi - avg)**2 for xi in x ]
+stdev = math.sqrt(sum(devsq) / 100)
+
+print('Average: %.3fms\tError: %.3fms' % (1000*avg, 1000*stdev))
+</code></pre>
+
+<p>My computer gives an average 19.568ms per loop, almost the double of the expected 10ms. Also, the standard deviation tells us that 68% of the samples drift by less than 0.810ms, and the other 32% drift more than 0.810ms. Not bad, but this makes almost a third of our frames rendered a little late, so it may significantly affect the animation quality. In the end, we cannot use python's <code>time.sleep</code> for these time-sensitive delays. What can we do now?</p>
+
+<p>My approach was to use a C library for the time-sensitive functions, and use python for the high level animation routines. I choose <a href="https://github.com/WiringPi/WiringPi-Python">WiringPi</a> because it provides a standard API across various platforms (e.g. Arduino), offering timing, bit banging and software PWM functions accurate to a microsecond. After everything is set up, we can try to simulate a fade-in transition, that is, a sequence of frames with increasing brightness.</p>
+
+<pre><code>digits = [1,2,3,4]
+for brightness in xrange(100):
+    # t_on and t_off are in µs = 1e-6s
+    t_on  = 1e6 / 60.0 * brightness / 100
+    t_off = 1e6 / 60.0 - t_on
+    nixie.set(digits)
+    wiringpi.delayMicroseconds(t_on)
+    nixie.clear()
+    wiringpi.delayMicroseconds(t_off)
+</code></pre>
+
+<p>So after 100 frames (~1.6s) it will have dimmed to 0% to 99% brightness. After a busy day playing with animations and loops, we have got some effects:</p>
+
+<iframe src="https://player.vimeo.com/video/197039957" width="640" height="361" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+
+<p><a href="https://vimeo.com/197039957">Nixie tubes meet Raspberry Pi</a> from <a href="https://vimeo.com/user60730111">Daniel M. Lima</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+
+<p>This is just a prototype, but we can have a glimpse of how to final product would look like.</p>
+</div>
+  <footer>
+    <span class="author"><i class="icon-user"></i> Daniel Lima</span>
+  </footer>
+  <hr />
+  
+</article>
+
+      <footer>
+        <div>
+          This site is published under the <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons BY 4.0</a> license &copy; <time>2015-2016</time> tinyhub.tk
+        </div>
+      </footer>
+    </main>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-68320885-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>

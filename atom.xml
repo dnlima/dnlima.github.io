@@ -4,12 +4,69 @@
 	<title>tinyhub.tk</title>
 	<link href="/atom.xml" rel="self"/>
 	<link href="/"/>
-	<updated>2016-08-15T19:06:22-03:00</updated>
+	<updated>2016-12-26T17:14:48-02:00</updated>
 	<id>http://tinyhub.tk//</id>
 	<author>
 		<name>Daniel Lima</name>
 	</author>
 
+	
+	<entry>
+		<title>Nixies + Raspberry Pi</title>
+		<link href="/blog/2016/12/25/nixie-tubes-raspi/"/>
+		<updated>2016-12-25T00:00:00-02:00</updated>
+		<id>tinyhub.tk/blog/2016/12/25/nixie-tubes-raspi</id>
+		<content type="html">&lt;p&gt;A client requested my help to make various sorts of transitions for his steampunk nixie tube display, controlled by a Raspberry Pi v2. He asked me to code in Python, if possible. So, is python fast enough for software PWM? Let&#39;s try.&lt;/p&gt;
+
+&lt;p&gt;Computer-generated animation is an optical illusion, which deceives the human eye to perceive motion by displaying a sequence of motionless frames faster than the eye can see. A refresh rate of 24 &lt;em&gt;frames per second&lt;/em&gt; (fps) is used in movies, and is an acceptable minimum for frames taken with nitrate film photography. The static bitmapped scenes generated with a computer have sharp edges, looking much more like a high-speed photo. This makes it easier for the eye to perceive each individual frame, so computer displays use a minimum of 60 fps for a smooth animation effect. If we are displaying 60 frames per one second, it means that each frame has 1/60 of this one second, approximately 16.7 milliseconds.&lt;/p&gt;
+
+&lt;p&gt;Now, to simulate the impression of a fading digit, we should be able to dim the amount of brightness in &lt;em&gt;each&lt;/em&gt; frame. This is easy if we use a technique called &lt;a href=&quot;https://en.wikipedia.org/wiki/Pulse-width_modulation&quot;&gt;pulse-width modulation&lt;/a&gt; (PWM). Basically, if each frame is displayed for &lt;em&gt;t&lt;/em&gt; = 16.7ms, we switch the light on for some time (called &lt;em&gt;t&lt;sub&gt;on&lt;/sub&gt;&lt;/em&gt;), and then we switch it off for the rest of the frame (&lt;em&gt;t&lt;sub&gt;off&lt;/sub&gt; = t - t&lt;sub&gt;on&lt;/sub&gt;&lt;/em&gt;), so the average power is proportional to &lt;em&gt;t&lt;sub&gt;on&lt;/sub&gt; / t&lt;/em&gt; %. To implement this routine we need two components: a GPIO driver function and a sleep function, and these two functions need to complete in our frame deadline (16.7ms). To test &lt;code&gt;time.sleep&lt;/code&gt; accuracy, I used this snippet to do 100 loops of 100 sleeps of 0.1ms and take statistical measures. Each loop should take 100×0.1ms = 10ms.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/bin/env python2
+import time
+import math
+
+x = []
+for i in xrange(100):
+    t = time.time()
+    for j in xrange(100):
+        time.sleep(0.0001)
+    t = time.time() - t
+    x.append(t)
+
+avg = sum(x) / 100
+devsq = [ (xi - avg)**2 for xi in x ]
+stdev = math.sqrt(sum(devsq) / 100)
+
+print(&#39;Average: %.3fms\tError: %.3fms&#39; % (1000*avg, 1000*stdev))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;My computer gives an average 19.568ms per loop, almost the double of the expected 10ms. Also, the standard deviation tells us that 68% of the samples drift by less than 0.810ms, and the other 32% drift more than 0.810ms. Not bad, but this makes almost a third of our frames rendered a little late, so it may significantly affect the animation quality. In the end, we cannot use python&#39;s &lt;code&gt;time.sleep&lt;/code&gt; for these time-sensitive delays. What can we do now?&lt;/p&gt;
+
+&lt;p&gt;My approach was to use a C library for the time-sensitive functions, and use python for the high level animation routines. I choose &lt;a href=&quot;https://github.com/WiringPi/WiringPi-Python&quot;&gt;WiringPi&lt;/a&gt; because it provides a standard API across various platforms (e.g. Arduino), offering timing, bit banging and software PWM functions accurate to a microsecond. After everything is set up, we can try to simulate a fade-in transition, that is, a sequence of frames with increasing brightness.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;digits = [1,2,3,4]
+for brightness in xrange(100):
+    # t_on and t_off are in µs = 1e-6s
+    t_on  = 1e6 / 60.0 * brightness / 100
+    t_off = 1e6 / 60.0 - t_on
+    nixie.set(digits)
+    wiringpi.delayMicroseconds(t_on)
+    nixie.clear()
+    wiringpi.delayMicroseconds(t_off)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So after 100 frames (~1.6s) it will have dimmed to 0% to 99% brightness. After a busy day playing with animations and loops, we have got some effects:&lt;/p&gt;
+
+&lt;iframe src=&quot;https://player.vimeo.com/video/197039957&quot; width=&quot;640&quot; height=&quot;361&quot; frameborder=&quot;0&quot; webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;
+
+
+&lt;p&gt;&lt;a href=&quot;https://vimeo.com/197039957&quot;&gt;Nixie tubes meet Raspberry Pi&lt;/a&gt; from &lt;a href=&quot;https://vimeo.com/user60730111&quot;&gt;Daniel M. Lima&lt;/a&gt; on &lt;a href=&quot;https://vimeo.com&quot;&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;
+
+
+&lt;p&gt;This is just a prototype, but we can have a glimpse of how to final product would look like.&lt;/p&gt;
+</content>
+	</entry>
 	
 	<entry>
 		<title>PEG or Regex?</title>
