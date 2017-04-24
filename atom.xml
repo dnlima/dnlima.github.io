@@ -4,8 +4,8 @@
 	<title>nanohub.tk</title>
 	<link href="/atom.xml" rel="self"/>
 	<link href="/"/>
-	<updated>2017-03-29T19:50:50-03:00</updated>
-	<id>http://localhost:4000/</id>
+	<updated>2017-04-24T15:48:29-03:00</updated>
+	<id>http://nanohub.tk//</id>
 	<author>
 		<name>Daniel Lima</name>
 	</author>
@@ -20,7 +20,7 @@
 
 &lt;p&gt;Computer-generated animation is an optical illusion, which deceives the human eye to perceive motion by displaying a sequence of motionless frames faster than the eye can see. A refresh rate of 24 &lt;em&gt;frames per second&lt;/em&gt; (fps) is used in movies, and is an acceptable minimum for frames taken with nitrate film photography. The static bitmapped scenes generated with a computer have sharp edges, looking much more like a high-speed photo. This makes it easier for the eye to perceive each individual frame, so computer displays use a minimum of 60 fps for a smooth animation effect. If we are displaying 60 frames per one second, it means that each frame has 1/60 of this one second, approximately 16.7 milliseconds.&lt;/p&gt;
 
-&lt;p&gt;Now, to simulate the impression of a fading digit, we should be able to dim the amount of brightness in &lt;em&gt;each&lt;/em&gt; frame. This is easy if we use a technique called &lt;a href=&quot;https://en.wikipedia.org/wiki/Pulse-width_modulation&quot;&gt;pulse-width modulation&lt;/a&gt; (PWM). Basically, if each frame is displayed for &lt;em&gt;t&lt;/em&gt; = 16.7ms, we switch the light on for some time (called &lt;em&gt;t&lt;sub&gt;on&lt;/sub&gt;&lt;/em&gt;), and then we switch it off for the rest of the frame (&lt;em&gt;t&lt;sub&gt;off&lt;/sub&gt; = t - t&lt;sub&gt;on&lt;/sub&gt;&lt;/em&gt;), so the average power is proportional to &lt;em&gt;t&lt;sub&gt;on&lt;/sub&gt; / t&lt;/em&gt; %. To implement this routine we need two components: a GPIO driver function and a sleep function, and these two functions need to complete in our frame deadline (16.7ms). To test &lt;code&gt;time.sleep&lt;/code&gt; accuracy, I used this snippet to do 100 loops of 100 sleeps of 0.1ms and take statistical measures. Each loop should take 100×0.1ms = 10ms.&lt;/p&gt;
+&lt;p&gt;Now, to simulate the impression of a fading digit, we should be able to dim the amount of brightness in &lt;em&gt;each&lt;/em&gt; frame. This is easy if we use a technique called &lt;a href=&quot;https://en.wikipedia.org/wiki/Pulse-width_modulation&quot;&gt;pulse-width modulation&lt;/a&gt; (PWM). Basically, if each frame is displayed for &lt;em&gt;t&lt;/em&gt; = 16.7ms, we switch the light on for some time (called &lt;em&gt;t&lt;sub&gt;on&lt;/sub&gt;&lt;/em&gt;), and then we switch it off for the rest of the frame (&lt;em&gt;t&lt;sub&gt;off&lt;/sub&gt; = t - t&lt;sub&gt;on&lt;/sub&gt;&lt;/em&gt;), so the average power is proportional to &lt;em&gt;t&lt;sub&gt;on&lt;/sub&gt; / t&lt;/em&gt;. To implement this routine we need two components: a GPIO driver function and a sleep function, and these two functions need to complete in our frame deadline (16.7ms). To test &lt;code&gt;time.sleep&lt;/code&gt; accuracy, I used this snippet to do 100 loops of 100 sleeps of 0.1ms and take statistical measures. Each loop should take 100×0.1ms = 10ms.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;#!/bin/env python2
 import time
@@ -56,7 +56,7 @@ for brightness in xrange(100):
     wiringpi.delayMicroseconds(t_off)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;So after 100 frames (~1.6s) it will have dimmed to 0% to 99% brightness. After a busy day playing with animations and loops, we have got some effects:&lt;/p&gt;
+&lt;p&gt;So after 100 frames (~1.6s) it will have dimmed from 0% to 99% brightness. After a busy day playing with animations and loops, we have got some effects:&lt;/p&gt;
 
 &lt;iframe src=&quot;https://player.vimeo.com/video/197039957&quot; width=&quot;640&quot; height=&quot;361&quot; frameborder=&quot;0&quot; webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;
 

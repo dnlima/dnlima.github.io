@@ -63,7 +63,7 @@
 
 <p>Computer-generated animation is an optical illusion, which deceives the human eye to perceive motion by displaying a sequence of motionless frames faster than the eye can see. A refresh rate of 24 <em>frames per second</em> (fps) is used in movies, and is an acceptable minimum for frames taken with nitrate film photography. The static bitmapped scenes generated with a computer have sharp edges, looking much more like a high-speed photo. This makes it easier for the eye to perceive each individual frame, so computer displays use a minimum of 60 fps for a smooth animation effect. If we are displaying 60 frames per one second, it means that each frame has 1/60 of this one second, approximately 16.7 milliseconds.</p>
 
-<p>Now, to simulate the impression of a fading digit, we should be able to dim the amount of brightness in <em>each</em> frame. This is easy if we use a technique called <a href="https://en.wikipedia.org/wiki/Pulse-width_modulation">pulse-width modulation</a> (PWM). Basically, if each frame is displayed for <em>t</em> = 16.7ms, we switch the light on for some time (called <em>t<sub>on</sub></em>), and then we switch it off for the rest of the frame (<em>t<sub>off</sub> = t - t<sub>on</sub></em>), so the average power is proportional to <em>t<sub>on</sub> / t</em> %. To implement this routine we need two components: a GPIO driver function and a sleep function, and these two functions need to complete in our frame deadline (16.7ms). To test <code>time.sleep</code> accuracy, I used this snippet to do 100 loops of 100 sleeps of 0.1ms and take statistical measures. Each loop should take 100×0.1ms = 10ms.</p>
+<p>Now, to simulate the impression of a fading digit, we should be able to dim the amount of brightness in <em>each</em> frame. This is easy if we use a technique called <a href="https://en.wikipedia.org/wiki/Pulse-width_modulation">pulse-width modulation</a> (PWM). Basically, if each frame is displayed for <em>t</em> = 16.7ms, we switch the light on for some time (called <em>t<sub>on</sub></em>), and then we switch it off for the rest of the frame (<em>t<sub>off</sub> = t - t<sub>on</sub></em>), so the average power is proportional to <em>t<sub>on</sub> / t</em>. To implement this routine we need two components: a GPIO driver function and a sleep function, and these two functions need to complete in our frame deadline (16.7ms). To test <code>time.sleep</code> accuracy, I used this snippet to do 100 loops of 100 sleeps of 0.1ms and take statistical measures. Each loop should take 100×0.1ms = 10ms.</p>
 
 <pre><code>#!/bin/env python2
 import time
@@ -99,7 +99,7 @@ for brightness in xrange(100):
     wiringpi.delayMicroseconds(t_off)
 </code></pre>
 
-<p>So after 100 frames (~1.6s) it will have dimmed to 0% to 99% brightness. After a busy day playing with animations and loops, we have got some effects:</p>
+<p>So after 100 frames (~1.6s) it will have dimmed from 0% to 99% brightness. After a busy day playing with animations and loops, we have got some effects:</p>
 
 <iframe src="https://player.vimeo.com/video/197039957" width="640" height="361" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
