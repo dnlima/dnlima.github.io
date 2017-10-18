@@ -15,13 +15,25 @@
    viewBox="0 0 744.09448819 1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.91 r13725"
-   inkscape:export-filename="/home/dan/git/tinyhub/img/logo.png"
-   inkscape:export-xdpi="19.873072"
-   inkscape:export-ydpi="19.873072"
+   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
+   inkscape:export-filename="/home/dan/git/hub/img/logo.png"
+   inkscape:export-xdpi="20.780001"
+   inkscape:export-ydpi="20.780001"
    sodipodi:docname="logo.svg">
   <defs
      id="defs4">
+    <linearGradient
+       id="linearGradient4592"
+       inkscape:collect="always">
+      <stop
+         id="stop4588"
+         offset="0"
+         style="stop-color:#10ffb9;stop-opacity:1" />
+      <stop
+         id="stop4590"
+         offset="1"
+         style="stop-color:#df71f5;stop-opacity:0.98823529" />
+    </linearGradient>
     <linearGradient
        inkscape:collect="always"
        id="linearGradient4249">
@@ -73,17 +85,15 @@
        fx="250.32505"
        fy="380.00395"
        r="68.608802" />
-    <radialGradient
+    <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient4249"
-       id="radialGradient4181"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1,0,0,0.24805166,133.05614,261.87382)"
-       cx="250.32505"
-       cy="380.00395"
-       fx="250.32505"
-       fy="380.00395"
-       r="68.608802" />
+       xlink:href="#linearGradient4592"
+       id="linearGradient4596"
+       x1="324.50685"
+       y1="366.61514"
+       x2="438.96718"
+       y2="366.61514"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -92,17 +102,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.0926032"
-     inkscape:cx="372.04724"
-     inkscape:cy="713.51318"
+     inkscape:zoom="1.0923512"
+     inkscape:cx="396.85039"
+     inkscape:cy="934.08731"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g4173"
      showgrid="false"
-     inkscape:window-width="1278"
-     inkscape:window-height="784"
+     inkscape:window-width="1364"
+     inkscape:window-height="753"
      inkscape:window-x="0"
-     inkscape:window-y="14"
-     inkscape:window-maximized="0" />
+     inkscape:window-y="13"
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -179,11 +189,11 @@
          d="m 243.68992,377.34568 127.80068,73.9705 c 5.44119,2.96704 14.57665,3.21636 20.27961,0 l 128.73966,-74.48545 c 12.96452,-7.53002 11.78694,-15.00243 -0.69347,-21.04996 L 391.77021,281.98879 c -7.41921,-3.46154 -13.73511,-3.4574 -20.27961,0 l -127.92327,74.00115 c -13.1177,7.26976 -13.08419,13.84434 0.12259,21.35574 z"
          style="fill:#f2f2f2;fill-rule:evenodd;stroke:#2c5aa0;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
       <path
-         style="opacity:1;fill:url(#radialGradient4181);fill-opacity:1;fill-rule:evenodd;stroke:#2c5aa0;stroke-width:6;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="m 411.33354,331.70791 39.88148,22.86923 -52.63435,4.31127 29.18191,16.68482 -112.40644,1.74174 55.59145,-15.9901 -20.45051,-10.95552 z"
-         id="path4179"
+         sodipodi:nodetypes="ccccccccc"
          inkscape:connector-curvature="0"
-         sodipodi:nodetypes="cccccccc" />
+         id="path4177-3"
+         d="m 337.43991,377.34568 34.05069,19.59551 c 5.44119,2.96704 14.57665,3.21635 20.27961,0 l 34.98967,-20.11046 c 12.96452,-7.53002 11.78694,-15.00243 -0.69348,-21.04996 l -34.29619,-19.41698 c -7.41921,-3.46154 -13.73511,-3.4574 -20.27961,0 l -34.17328,19.62615 c -13.1177,7.26976 -13.08419,13.84434 0.12259,21.35574 z"
+         style="fill:url(#linearGradient4596);fill-rule:evenodd;stroke:#2c5aa0;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1" />
     </g>
   </g>
 </svg>
