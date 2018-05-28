@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-	<title>nanohub</title>
+	<title>daniel's blog</title>
 	<link href="/atom.xml" rel="self"/>
 	<link href="/"/>
-	<updated>2018-04-24T07:16:52-03:00</updated>
-	<id>http://limadm.github.io//</id>
+	<updated>2018-05-28T18:41:05-03:00</updated>
+	<id>http://limadm.tk//</id>
 	<author>
 		<name>Daniel Lima</name>
 	</author>
@@ -15,7 +15,7 @@
 		<title>Nixies + Raspberry Pi</title>
 		<link href="/blog/2016/12/25/nixie-tubes-raspi/"/>
 		<updated>2016-12-25T00:00:00-02:00</updated>
-		<id>nanohub/blog/2016/12/25/nixie-tubes-raspi</id>
+		<id>daniel's blog/blog/2016/12/25/nixie-tubes-raspi</id>
 		<content type="html">&lt;p&gt;A client requested my help to make various sorts of transitions for his steampunk nixie tube display, controlled by a Raspberry Pi v2. He asked me to code in Python, if possible. So, is python fast enough for software PWM? Let's try.&lt;/p&gt;
 
 &lt;p&gt;Computer-generated animation is an optical illusion, which deceives the human eye to perceive motion by displaying a sequence of motionless frames faster than the eye can see. A refresh rate of 24 &lt;em&gt;frames per second&lt;/em&gt; (fps) is used in movies, and is an acceptable minimum for frames taken with nitrate film photography. The static bitmapped scenes generated with a computer have sharp edges, looking much more like a high-speed photo. This makes it easier for the eye to perceive each individual frame, so computer displays use a minimum of 60 fps for a smooth animation effect. If we are displaying 60 frames per one second, it means that each frame has 1/60 of this one second, approximately 16.7 milliseconds.&lt;/p&gt;
@@ -72,7 +72,7 @@ for brightness in xrange(100):
 		<title>PEG or Regex?</title>
 		<link href="/blog/2016/08/15/peg-or-regexes/"/>
 		<updated>2016-08-15T00:00:00-03:00</updated>
-		<id>nanohub/blog/2016/08/15/peg-or-regexes</id>
+		<id>daniel's blog/blog/2016/08/15/peg-or-regexes</id>
 		<content type="html">&lt;p&gt;Most programmers know (or should know) regexes (Regular Expressions), it is perhaps the most used string parsing and searching tool. Several implementations and extensions exist, and can be found by default in OS and programming languages. Basically, it is a language that allows us to describe other small languages with a regular grammar, and use a computer program to search for patterns and/or split pieces of a given string that follows that grammar.&lt;/p&gt;
 
 &lt;p&gt;Some basic examples:&lt;/p&gt;
@@ -107,7 +107,7 @@ time &amp;lt;- {%d^2} ':' {%d^2} ':' {%d^2 ('.' {%d+})?}
 		<title>Managing my Luas</title>
 		<link href="/blog/2016/06/22/luas-manager/"/>
 		<updated>2016-06-22T00:00:00-03:00</updated>
-		<id>nanohub/blog/2016/06/22/luas-manager</id>
+		<id>daniel's blog/blog/2016/06/22/luas-manager</id>
 		<content type="html">&lt;p&gt;One of my favorite programming languages is &lt;a href=&quot;http://lua.org/&quot;&gt;Lua&lt;/a&gt;, a scripting language as
 old as Python and Ruby, with a much cleaner and regular syntax, the simplest C FFI that someone
 could find, and the impressive &lt;a href=&quot;http://luajit.org/&quot;&gt;LuaJIT&lt;/a&gt; speed. So I use it as much as I can.&lt;/p&gt;
@@ -157,7 +157,7 @@ JIT: ON SSE2 SSE3 SSE4.1 fold cse dce fwd dse narrow loop abc sink fuse
 		<title>Optiboot for Nanos</title>
 		<link href="/blog/2016/05/15/optiboot-for-nanos/"/>
 		<updated>2016-05-15T00:00:00-03:00</updated>
-		<id>nanohub/blog/2016/05/15/optiboot-for-nanos</id>
+		<id>daniel's blog/blog/2016/05/15/optiboot-for-nanos</id>
 		<content type="html">&lt;p&gt;Optiboot is a smaller and faster bootloader for Arduino, which is already used for Arduino Unos in recent versions of the standard Arduino IDE. Unfortunately the same cannot be said for the other Arduino Boards, so in this article we will use a spare Arduino Uno as an ISP programmer and burn the optiboot bootloader into an Arduino Nano. Let's go.&lt;/p&gt;
 
 &lt;p&gt;First, we need to upload the ArduinoISP sketch to the Uno board (to use it as a programmer). Connect the Arduino Uno to the USB port. Open the menu &lt;strong&gt;File &gt; Examples &gt; 11.ArduinoISP &gt; ArduinoISP&lt;/strong&gt;, then select the Uno board (&lt;strong&gt;Tools &gt; Board &gt; Arduino/Genuino Uno&lt;/strong&gt;) and its COM port (e.g. &lt;strong&gt;Tools &gt; Port &gt; COM3&lt;/strong&gt;). Finally, click &lt;strong&gt;Sketch &gt; Upload&lt;/strong&gt;.&lt;/p&gt;
@@ -178,7 +178,7 @@ JIT: ON SSE2 SSE3 SSE4.1 fold cse dce fwd dse narrow loop abc sink fuse
 		<title>YCM and MSYS2</title>
 		<link href="/blog/2016/04/26/ycm-on-msys2/"/>
 		<updated>2016-04-26T00:00:00-03:00</updated>
-		<id>nanohub/blog/2016/04/26/ycm-on-msys2</id>
+		<id>daniel's blog/blog/2016/04/26/ycm-on-msys2</id>
 		<content type="html">&lt;p&gt;MSYS2 is a fantastic project for running ported GNU/Linux software on MS Windows natively, but unfortunately YouCompleteMe does not build cleanly with msys2-x86_64. If we try to run &lt;code&gt;python2 install.py&lt;/code&gt;, it fails with errors in LONG_BIT definitions and object linking. Examining the files under &lt;code&gt;third-party/ycmd&lt;/code&gt; sources, it seems that there are misconfigured build options: 1) SIZEOF_LONG is defined as 4, which is incorrect in a 64-bit environment; 2) there are no checks for MSYS environment, and because cmake defines MSYS as an &quot;UNIX&quot; environment instead of a &quot;WIN32&quot; one, some of the necessary definitions (dllimport, BOOST_PYTHON_SOURCE and others) will be missing. All we need to do is fix the wrong definition and put a few checks in the ycmd's CMakeLists. Here is &lt;a href=&quot;https://gist.github.com/danielmario/639a487949837422485740dbacf09509&quot;&gt;the patch file&lt;/a&gt;.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;pacman -S git cmake gcc python2
@@ -196,7 +196,7 @@ python2 install.py
 		<title>New Year</title>
 		<link href="/blog/2015/12/30/new-year/"/>
 		<updated>2015-12-30T00:00:00-02:00</updated>
-		<id>nanohub/blog/2015/12/30/new-year</id>
+		<id>daniel's blog/blog/2015/12/30/new-year</id>
 		<content type="html">&lt;p&gt;Another year comes, so it is time for renewed spirits and happy faces!
 I just wish to empty the drawer of interrupted projects (and make this blog roll.)&lt;/p&gt;
 
@@ -208,7 +208,7 @@ I just wish to empty the drawer of interrupted projects (and make this blog roll
 		<title>20th Million Man March</title>
 		<link href="/blog/2015/10/07/million-man-march/"/>
 		<updated>2015-10-07T00:00:00-03:00</updated>
-		<id>nanohub/blog/2015/10/07/million-man-march</id>
+		<id>daniel's blog/blog/2015/10/07/million-man-march</id>
 		<content type="html">&lt;p&gt;In three days the &lt;a href=&quot;http://en.wikipedia.org/wiki/Million_Man_March&quot;&gt;20th Million Man March&lt;/a&gt;
 will happen.
 I made this T-Shirt design for one of the attendant groups, but got no response yet...&lt;/p&gt;
@@ -223,7 +223,7 @@ I made this T-Shirt design for one of the attendant groups, but got no response 
 		<title>Under construction</title>
 		<link href="/meta/2015/10/01/under-construction/"/>
 		<updated>2015-10-01T00:00:00-03:00</updated>
-		<id>nanohub/meta/2015/10/01/under-construction</id>
+		<id>daniel's blog/meta/2015/10/01/under-construction</id>
 		<content type="html">&lt;p&gt;With barely a month left, I'm suddenly thinking about the
 &lt;a href=&quot;http://codegeist.devpost.com&quot;&gt;Codegeist 2015 Hackaton&lt;/a&gt;. So
 tinyhub, you will be both my vendor identity and my development
