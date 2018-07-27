@@ -1,4 +1,4 @@
 Daniel's µblog
 -------------
 
-![Go to http://limadm.tk/](http://limadm.tk/)
+It used to have a tiny url, but media thieves happened...
