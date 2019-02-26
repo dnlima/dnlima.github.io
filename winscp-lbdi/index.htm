@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<title>Como acessar um dataset no lbdi via WinSCP</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<style>
+	.mySlides {display:none;}
+	footnote {font-size: 8pt; color: #aaa; text-align: center; display: block; margin: 20px;}
+	</style>
+	<body>
+	
+	<h2 class="w3-center">Como acessar um dataset no lbdi via WinSCP</h2>
+	
+	<div class="w3-content w3-display-container">
+		<img class="mySlides" src="img/ws1.jpg" style="width:100%">
+		<img class="mySlides" src="img/ws2.jpg" style="width:100%">
+		<img class="mySlides" src="img/ws3.jpg" style="width:100%">
+		<img class="mySlides" src="img/ws4.jpg" style="width:100%">
+		<img class="mySlides" src="img/ws5.jpg" style="width:100%">
+		<img class="mySlides" src="img/ws6.jpg" style="width:100%">
+		<img class="mySlides" src="img/ws7.png" style="width:100%">
+		<img class="mySlides" src="img/ws8.png" style="width:100%">
+		<img class="mySlides" src="img/ws9.png" style="width:100%">
+		<img class="mySlides" src="img/ws10.png" style="width:100%">
+		<img class="mySlides" src="img/ws11.png" style="width:100%">
+		<img class="mySlides" src="img/ws12.png" style="width:100%">
+		<img class="mySlides" src="img/ws13.png" style="width:100%">
+		<img class="mySlides" src="img/ws14.png" style="width:100%">
+		<img class="mySlides" src="img/ws15.png" style="width:100%">
+	
+	  <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+	  <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+	</div>
+
+	<footnote>Material didático feito para o <a href="http://gbdi.icmc.usp.br">GBDI</a> sob licença CC0, 2019 danielm / usp.br</footnote>	
+
+	<script>
+	var slideIndex = 1;
+	showDivs(slideIndex);
+	
+	function plusDivs(n) {
+	  if (1 <= (slideIndex + n) && (slideIndex + n) <= 15) showDivs(slideIndex += n);
+	}
+	
+	function showDivs(n) {
+	  var i;
+	  var x = document.getElementsByClassName("mySlides");
+	  if (n > x.length) {slideIndex = 1}
+	  if (n < 1) {slideIndex = x.length}
+	  for (i = 0; i < x.length; i++) {
+		x[i].style.display = "none";  
+	  }
+	  x[slideIndex-1].style.display = "block";  
+	}
+	</script>
+</html>
