@@ -1,4 +1,4 @@
-Daniel's µblog
+Daniel's blog
 -------------
 
-It used to have a tiny url, but media thieves happened...
+![Go to http://limadm.github.io/](http://limadm.github.io/)

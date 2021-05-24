@@ -4,8 +4,8 @@
 	<title>daniel's blog</title>
 	<link href="/atom.xml" rel="self"/>
 	<link href="/"/>
-	<updated>2018-06-07T14:09:28-03:00</updated>
-	<id>http://limadm.tk//</id>
+	<updated>2021-05-24T14:57:40-03:00</updated>
+	<id>http://limadm.github.io//</id>
 	<author>
 		<name>Daniel Lima</name>
 	</author>
@@ -16,13 +16,13 @@
 		<link href="/blog/2016/12/25/nixie-tubes-raspi/"/>
 		<updated>2016-12-25T00:00:00-02:00</updated>
 		<id>daniel's blog/blog/2016/12/25/nixie-tubes-raspi</id>
-		<content type="html">&lt;p&gt;A client requested my help to make various sorts of transitions for his steampunk nixie tube display, controlled by a Raspberry Pi v2. He asked me to code in Python, if possible. So, is python fast enough for software PWM? Let's try.&lt;/p&gt;
+		<content type="html">&lt;p&gt;A client requested my help to make various sorts of transitions for his steampunk nixie tube display, controlled by a Raspberry Pi v2. He asked me to code in Python, if possible. So, is python fast enough for software PWM? Let’s try.&lt;/p&gt;
 
 &lt;p&gt;Computer-generated animation is an optical illusion, which deceives the human eye to perceive motion by displaying a sequence of motionless frames faster than the eye can see. A refresh rate of 24 &lt;em&gt;frames per second&lt;/em&gt; (fps) is used in movies, and is an acceptable minimum for frames taken with nitrate film photography. The static bitmapped scenes generated with a computer have sharp edges, looking much more like a high-speed photo. This makes it easier for the eye to perceive each individual frame, so computer displays use a minimum of 60 fps for a smooth animation effect. If we are displaying 60 frames per one second, it means that each frame has 1/60 of this one second, approximately 16.7 milliseconds.&lt;/p&gt;
 
-&lt;p&gt;Now, to simulate the impression of a fading digit, we should be able to dim the amount of brightness in &lt;em&gt;each&lt;/em&gt; frame. This is easy if we use a technique called &lt;a href=&quot;https://en.wikipedia.org/wiki/Pulse-width_modulation&quot;&gt;pulse-width modulation&lt;/a&gt; (PWM). Basically, if each frame is displayed for &lt;em&gt;t&lt;/em&gt; = 16.7ms, we switch the light on for some time (called &lt;em&gt;t&lt;sub&gt;on&lt;/sub&gt;&lt;/em&gt;), and then we switch it off for the rest of the frame (&lt;em&gt;t&lt;sub&gt;off&lt;/sub&gt; = t - t&lt;sub&gt;on&lt;/sub&gt;&lt;/em&gt;), so the average power is proportional to &lt;em&gt;t&lt;sub&gt;on&lt;/sub&gt; / t&lt;/em&gt;. To implement this routine we need two components: a GPIO driver function and a sleep function, and these two functions need to complete in our frame deadline (16.7ms). To test &lt;code&gt;time.sleep&lt;/code&gt; accuracy, I used this snippet to do 100 loops of 100 sleeps of 0.1ms and take statistical measures. Each loop should take 100×0.1ms = 10ms.&lt;/p&gt;
+&lt;p&gt;Now, to simulate the impression of a fading digit, we should be able to dim the amount of brightness in &lt;em&gt;each&lt;/em&gt; frame. This is easy if we use a technique called &lt;a href=&quot;https://en.wikipedia.org/wiki/Pulse-width_modulation&quot;&gt;pulse-width modulation&lt;/a&gt; (PWM). Basically, if each frame is displayed for &lt;em&gt;t&lt;/em&gt; = 16.7ms, we switch the light on for some time (called &lt;em&gt;t&lt;sub&gt;on&lt;/sub&gt;&lt;/em&gt;), and then we switch it off for the rest of the frame (&lt;em&gt;t&lt;sub&gt;off&lt;/sub&gt; = t - t&lt;sub&gt;on&lt;/sub&gt;&lt;/em&gt;), so the average power is proportional to &lt;em&gt;t&lt;sub&gt;on&lt;/sub&gt; / t&lt;/em&gt;. To implement this routine we need two components: a GPIO driver function and a sleep function, and these two functions need to complete in our frame deadline (16.7ms). To test &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;time.sleep&lt;/code&gt; accuracy, I used this snippet to do 100 loops of 100 sleeps of 0.1ms and take statistical measures. Each loop should take 100×0.1ms = 10ms.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;#!/bin/env python2
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#!/bin/env python2
 import time
 import math
 
@@ -38,31 +38,28 @@ avg = sum(x) / 100
 devsq = [ (xi - avg)**2 for xi in x ]
 stdev = math.sqrt(sum(devsq) / 100)
 
-print('Average: %.3fms\tError: %.3fms' % (1000*avg, 1000*stdev))
-&lt;/code&gt;&lt;/pre&gt;
+print(&apos;Average: %.3fms\tError: %.3fms&apos; % (1000*avg, 1000*stdev))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;My computer gives an average 19.568ms per loop, almost the double of the expected 10ms. Also, the standard deviation tells us that 68% of the samples drift by less than 0.810ms, and the other 32% drift more than 0.810ms. Not bad, but this makes almost a third of our frames rendered a little late, so it may significantly affect the animation quality. In the end, we cannot use python's &lt;code&gt;time.sleep&lt;/code&gt; for these time-sensitive delays. What can we do now?&lt;/p&gt;
+&lt;p&gt;My computer gives an average 19.568ms per loop, almost the double of the expected 10ms. Also, the standard deviation tells us that 68% of the samples drift by less than 0.810ms, and the other 32% drift more than 0.810ms. Not bad, but this makes almost a third of our frames rendered a little late, so it may significantly affect the animation quality. In the end, we cannot use python’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;time.sleep&lt;/code&gt; for these time-sensitive delays. What can we do now?&lt;/p&gt;
 
 &lt;p&gt;My approach was to use a C library for the time-sensitive functions, and use python for the high level animation routines. I choose &lt;a href=&quot;https://github.com/WiringPi/WiringPi-Python&quot;&gt;WiringPi&lt;/a&gt; because it provides a standard API across various platforms (e.g. Arduino), offering timing, bit banging and software PWM functions accurate to a microsecond. After everything is set up, we can try to simulate a fade-in transition, that is, a sequence of frames with increasing brightness.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;digits = [1,2,3,4]
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;digits = [1,2,3,4]
 for brightness in xrange(100):
-    # t_on and t_off are in µs = 1e-6s
-    t_on  = 1e6 / 60.0 * brightness / 100
-    t_off = 1e6 / 60.0 - t_on
-    nixie.set(digits)
-    wiringpi.delayMicroseconds(t_on)
-    nixie.clear()
-    wiringpi.delayMicroseconds(t_off)
-&lt;/code&gt;&lt;/pre&gt;
+	# t_on and t_off are in µs = 1e-6s
+	t_on  = 1e6 / 60.0 * brightness / 100
+	t_off = 1e6 / 60.0 - t_on
+	nixie.set(digits)
+	wiringpi.delayMicroseconds(t_on)
+	nixie.clear()
+	wiringpi.delayMicroseconds(t_off)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;So after 100 frames (~1.6s) it will have dimmed from 0% to 99% brightness. After a busy day playing with animations and loops, we have got some effects:&lt;/p&gt;
 
-&lt;iframe src=&quot;https://player.vimeo.com/video/197039957&quot; width=&quot;640&quot; height=&quot;361&quot; frameborder=&quot;0&quot; webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;&lt;/iframe&gt;
-
-
+&lt;iframe src=&quot;https://player.vimeo.com/video/197039957&quot; width=&quot;640&quot; height=&quot;361&quot; frameborder=&quot;0&quot; webkitallowfullscreen=&quot;&quot; mozallowfullscreen=&quot;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 &lt;p&gt;&lt;a href=&quot;https://vimeo.com/197039957&quot;&gt;Nixie tubes meet Raspberry Pi&lt;/a&gt; from &lt;a href=&quot;https://vimeo.com/user60730111&quot;&gt;Daniel M. Lima&lt;/a&gt; on &lt;a href=&quot;https://vimeo.com&quot;&gt;Vimeo&lt;/a&gt;.&lt;/p&gt;
-
 
 &lt;p&gt;This is just a prototype, but we can have a glimpse of how to final product would look like. Now, merry X-mas and happy 2017!&lt;/p&gt;
 </content>
@@ -78,28 +75,28 @@ for brightness in xrange(100):
 &lt;p&gt;Some basic examples:&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;code&gt;/ok/&lt;/code&gt; matches any string with &lt;code&gt;ok&lt;/code&gt; inside, that is, &lt;code&gt;aok&lt;/code&gt;, &lt;code&gt;not ok&lt;/code&gt;, &lt;code&gt;okay&lt;/code&gt;;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/^ok/&lt;/code&gt; matches any string starting with &lt;code&gt;ok&lt;/code&gt;, e.g. &lt;code&gt;ok2&lt;/code&gt;, &lt;code&gt;okay&lt;/code&gt;;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/^ok$/&lt;/code&gt; matches &lt;code&gt;ok&lt;/code&gt; exactly;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/^ok = (true|false)$/&lt;/code&gt; matches &lt;code&gt;ok = true&lt;/code&gt; or &lt;code&gt;ok = false&lt;/code&gt; exactly, returning the &lt;em&gt;capture group&lt;/em&gt; in parethesis;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;/^version = (\d\.\d+)$/&lt;/code&gt; matches &lt;code&gt;ok =&lt;/code&gt; plus one digit, a point and one or more digits (&lt;code&gt;\d&lt;/code&gt; is a digit, &lt;code&gt;\.&lt;/code&gt; is the point, and &lt;code&gt;+&lt;/code&gt; is one or more repetitions of the preceding expression), so we can capture a floating point number written just after version.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/ok/&lt;/code&gt; matches any string with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ok&lt;/code&gt; inside, that is, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;aok&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;not ok&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;okay&lt;/code&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/^ok/&lt;/code&gt; matches any string starting with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ok&lt;/code&gt;, e.g. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ok2&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;okay&lt;/code&gt;;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/^ok$/&lt;/code&gt; matches &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ok&lt;/code&gt; exactly;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/^ok = (true|false)$/&lt;/code&gt; matches &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ok = true&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ok = false&lt;/code&gt; exactly, returning the &lt;em&gt;capture group&lt;/em&gt; in parethesis;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/^version = (\d\.\d+)$/&lt;/code&gt; matches &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ok =&lt;/code&gt; plus one digit, a point and one or more digits (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\d&lt;/code&gt; is a digit, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\.&lt;/code&gt; is the point, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;+&lt;/code&gt; is one or more repetitions of the preceding expression), so we can capture a floating point number written just after version.&lt;/li&gt;
 &lt;/ol&gt;
 
+&lt;p&gt;Then we see that Regular Expressions a offer pretty concise way of parsing text, but the problem is when we need more complex and longer patterns. For example, what about parsing all components (year, month, etc…) of an ISO datetime string, e.g., &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2016-08-15T17:51:52.291Z&lt;/code&gt;? Then we need something like:&lt;/p&gt;
 
-&lt;p&gt;Then we see that Regular Expressions a offer pretty concise way of parsing text, but the problem is when we need more complex and longer patterns. For example, what about parsing all components (year, month, etc...) of an ISO datetime string, e.g., &lt;code&gt;2016-08-15T17:51:52.291Z&lt;/code&gt;? Then we need something like:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;/(\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2})\.(\d+)Z/&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/(\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2})\.(\d+)Z/&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;Which is perfectly fine, but demands a careful examination to write and read. One day I thought that a more descriptive way would be interesting, if not desirable. Then I found the module &lt;a href=&quot;ww.inf.puc-rio.br/~roberto/lpeg/re.html&quot;&gt;LPeg.re&lt;/a&gt;, implemented with &lt;a href=&quot;http://www.inf.puc-rio.br/~roberto/docs/peg.pdf&quot;&gt;Parsing Expression Grammars&lt;/a&gt;, which is a lot more closer to the &lt;a href=&quot;https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_Form&quot;&gt;Backus-Naur Form&lt;/a&gt; and provides more structured syntax. For example, the pattern for the previous regex could be written as:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;&quot;&gt;datetime &amp;lt;- date 'T' time 'Z'
-date &amp;lt;- {%d^4} '-' {%d^2} '-' {%d^2}
-time &amp;lt;- {%d^2} ':' {%d^2} ':' {%d^2 ('.' {%d+})?}
-&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;datetime &amp;lt;- date &apos;T&apos; time &apos;Z&apos;
+date &amp;lt;- {%d^4} &apos;-&apos; {%d^2} &apos;-&apos; {%d^2}
+time &amp;lt;- {%d^2} &apos;:&apos; {%d^2} &apos;:&apos; {%d^2 (&apos;.&apos; {%d+})?}
 
-&lt;p&gt;Here &lt;code&gt;%d&lt;/code&gt; is a digit, &lt;code&gt;{}&lt;/code&gt; denote capture groups and &lt;code&gt;^n&lt;/code&gt; denote &lt;em&gt;n&lt;/em&gt; repetitions of the preceding pattern.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Even though it is longer, it makes possible to separate and name sub-patterns, structuring the source code a lot more -- much like how early macro assemblers evolved into structured programming languages. PEG also offers text transformation and returning objects from captures, sort of an advanced &lt;code&gt;awk&lt;/code&gt; or &lt;code&gt;sed&lt;/code&gt; integrated in the library, but that is for another day. =]&lt;/p&gt;
+&lt;p&gt;Here &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;%d&lt;/code&gt; is a digit, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;{}&lt;/code&gt; denote capture groups and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;^n&lt;/code&gt; denote &lt;em&gt;n&lt;/em&gt; repetitions of the preceding pattern.&lt;/p&gt;
+
+&lt;p&gt;Even though it is longer, it makes possible to separate and name sub-patterns, structuring the source code a lot more – much like how early macro assemblers evolved into structured programming languages. PEG also offers text transformation and returning objects from captures, sort of an advanced &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;awk&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sed&lt;/code&gt; integrated in the library, but that is for another day. =]&lt;/p&gt;
 </content>
 	</entry>
 	
@@ -118,7 +115,7 @@ to keep &lt;a href=&quot;http://luarocks.org/&quot;&gt;LuaRocks&lt;/a&gt; packag
 So I did one! &lt;a href=&quot;https://github.com/limadm/luas&quot;&gt;Luas&lt;/a&gt; is the simplest shell script I could
 make in a hurry to deploy an application today to one of my customers, check it out:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;$ git clone github.com:limadm/luas
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ git clone github.com:limadm/luas
 $ cd luas
 $ sudo make install
 $ luas list
@@ -144,10 +141,10 @@ $ luarocks install penlight
 $ luajit
 LuaJIT 2.1.0-beta2 -- Copyright (C) 2005-2016 Mike Pall. http://luajit.org/
 JIT: ON SSE2 SSE3 SSE4.1 fold cse dce fwd dse narrow loop abc sink fuse
-&amp;gt; require 'pl'
-&amp;gt; = seq.reduce('+', seq.range(1,100))
+&amp;gt; require &apos;pl&apos;
+&amp;gt; = seq.reduce(&apos;+&apos;, seq.range(1,100))
 5050
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Now I can have as many moons as I want! =]&lt;/p&gt;
 </content>
@@ -158,19 +155,19 @@ JIT: ON SSE2 SSE3 SSE4.1 fold cse dce fwd dse narrow loop abc sink fuse
 		<link href="/blog/2016/05/15/optiboot-for-nanos/"/>
 		<updated>2016-05-15T00:00:00-03:00</updated>
 		<id>daniel's blog/blog/2016/05/15/optiboot-for-nanos</id>
-		<content type="html">&lt;p&gt;Optiboot is a smaller and faster bootloader for Arduino, which is already used for Arduino Unos in recent versions of the standard Arduino IDE. Unfortunately the same cannot be said for the other Arduino Boards, so in this article we will use a spare Arduino Uno as an ISP programmer and burn the optiboot bootloader into an Arduino Nano. Let's go.&lt;/p&gt;
+		<content type="html">&lt;p&gt;Optiboot is a smaller and faster bootloader for Arduino, which is already used for Arduino Unos in recent versions of the standard Arduino IDE. Unfortunately the same cannot be said for the other Arduino Boards, so in this article we will use a spare Arduino Uno as an ISP programmer and burn the optiboot bootloader into an Arduino Nano. Let’s go.&lt;/p&gt;
 
-&lt;p&gt;First, we need to upload the ArduinoISP sketch to the Uno board (to use it as a programmer). Connect the Arduino Uno to the USB port. Open the menu &lt;strong&gt;File &gt; Examples &gt; 11.ArduinoISP &gt; ArduinoISP&lt;/strong&gt;, then select the Uno board (&lt;strong&gt;Tools &gt; Board &gt; Arduino/Genuino Uno&lt;/strong&gt;) and its COM port (e.g. &lt;strong&gt;Tools &gt; Port &gt; COM3&lt;/strong&gt;). Finally, click &lt;strong&gt;Sketch &gt; Upload&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;First, we need to upload the ArduinoISP sketch to the Uno board (to use it as a programmer). Connect the Arduino Uno to the USB port. Open the menu &lt;strong&gt;File &amp;gt; Examples &amp;gt; 11.ArduinoISP &amp;gt; ArduinoISP&lt;/strong&gt;, then select the Uno board (&lt;strong&gt;Tools &amp;gt; Board &amp;gt; Arduino/Genuino Uno&lt;/strong&gt;) and its COM port (e.g. &lt;strong&gt;Tools &amp;gt; Port &amp;gt; COM3&lt;/strong&gt;). Finally, click &lt;strong&gt;Sketch &amp;gt; Upload&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;Now we need to install the Optiboot boards in the Arduino IDE. In the menu &lt;strong&gt;File &gt; Preferences&lt;/strong&gt;, copy and paste the URL &lt;code&gt;https://github.com/Optiboot/optiboot/releases/download/v6.2/package_optiboot_optiboot-additional_index.json&lt;/code&gt; to the &lt;strong&gt;Additional Boards Manager URLs&lt;/strong&gt; text box, then click OK and go to &lt;strong&gt;Tools &gt; Board &gt; Boards Manager...&lt;/strong&gt; where you can search and install the &lt;strong&gt;Optiboot 6.2&lt;/strong&gt; package.&lt;/p&gt;
+&lt;p&gt;Now we need to install the Optiboot boards in the Arduino IDE. In the menu &lt;strong&gt;File &amp;gt; Preferences&lt;/strong&gt;, copy and paste the URL &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;https://github.com/Optiboot/optiboot/releases/download/v6.2/package_optiboot_optiboot-additional_index.json&lt;/code&gt; to the &lt;strong&gt;Additional Boards Manager URLs&lt;/strong&gt; text box, then click OK and go to &lt;strong&gt;Tools &amp;gt; Board &amp;gt; Boards Manager…&lt;/strong&gt; where you can search and install the &lt;strong&gt;Optiboot 6.2&lt;/strong&gt; package.&lt;/p&gt;
 
 &lt;p&gt;When the process is complete, connect the ICSP Nano pins to the Uno board: pins MOSI (11), MISO (12), SCK (13), 5V and GND of the Uno to the respective pins in the Nano; and pin 10 of the Uno to the RST (reset) pin in the Nano.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/img/2016/arduino-icsp.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;After this, restart the Arduino IDE, change the board type to &lt;strong&gt;Tools &gt; Board &gt; Optiboot on 32-pin CPUs&lt;/strong&gt;, the &lt;strong&gt;Tools &gt; Port&lt;/strong&gt; to the Uno serial port, the programmer to &lt;strong&gt;Tools &gt; Programmer &gt; Arduino as ISP&lt;/strong&gt; and click &lt;strong&gt;Tools &gt; Burn Bootloader&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;After this, restart the Arduino IDE, change the board type to &lt;strong&gt;Tools &amp;gt; Board &amp;gt; Optiboot on 32-pin CPUs&lt;/strong&gt;, the &lt;strong&gt;Tools &amp;gt; Port&lt;/strong&gt; to the Uno serial port, the programmer to &lt;strong&gt;Tools &amp;gt; Programmer &amp;gt; Arduino as ISP&lt;/strong&gt; and click &lt;strong&gt;Tools &amp;gt; Burn Bootloader&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;Now that the Nano has the Optiboot bootloader, you can disconnect the Uno and use the Nano normally. Just remember to set the board to one of the &lt;strong&gt;Optiboot&lt;/strong&gt; options and change &lt;strong&gt;Tools &gt; Port&lt;/strong&gt; to the Nano COM port before uploading your sketch.&lt;/p&gt;
+&lt;p&gt;Now that the Nano has the Optiboot bootloader, you can disconnect the Uno and use the Nano normally. Just remember to set the board to one of the &lt;strong&gt;Optiboot&lt;/strong&gt; options and change &lt;strong&gt;Tools &amp;gt; Port&lt;/strong&gt; to the Nano COM port before uploading your sketch.&lt;/p&gt;
 </content>
 	</entry>
 	
@@ -179,14 +176,14 @@ JIT: ON SSE2 SSE3 SSE4.1 fold cse dce fwd dse narrow loop abc sink fuse
 		<link href="/blog/2016/04/26/ycm-on-msys2/"/>
 		<updated>2016-04-26T00:00:00-03:00</updated>
 		<id>daniel's blog/blog/2016/04/26/ycm-on-msys2</id>
-		<content type="html">&lt;p&gt;MSYS2 is a fantastic project for running ported GNU/Linux software on MS Windows natively, but unfortunately YouCompleteMe does not build cleanly with msys2-x86_64. If we try to run &lt;code&gt;python2 install.py&lt;/code&gt;, it fails with errors in LONG_BIT definitions and object linking. Examining the files under &lt;code&gt;third-party/ycmd&lt;/code&gt; sources, it seems that there are misconfigured build options: 1) SIZEOF_LONG is defined as 4, which is incorrect in a 64-bit environment; 2) there are no checks for MSYS environment, and because cmake defines MSYS as an &quot;UNIX&quot; environment instead of a &quot;WIN32&quot; one, some of the necessary definitions (dllimport, BOOST_PYTHON_SOURCE and others) will be missing. All we need to do is fix the wrong definition and put a few checks in the ycmd's CMakeLists. Here is &lt;a href=&quot;https://gist.github.com/danielmario/639a487949837422485740dbacf09509&quot;&gt;the patch file&lt;/a&gt;.&lt;/p&gt;
+		<content type="html">&lt;p&gt;MSYS2 is a fantastic project for running ported GNU/Linux software on MS Windows natively, but unfortunately YouCompleteMe does not build cleanly with msys2-x86_64. If we try to run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python2 install.py&lt;/code&gt;, it fails with errors in LONG_BIT definitions and object linking. Examining the files under &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;third-party/ycmd&lt;/code&gt; sources, it seems that there are misconfigured build options: 1) SIZEOF_LONG is defined as 4, which is incorrect in a 64-bit environment; 2) there are no checks for MSYS environment, and because cmake defines MSYS as an “UNIX” environment instead of a “WIN32” one, some of the necessary definitions (dllimport, BOOST_PYTHON_SOURCE and others) will be missing. All we need to do is fix the wrong definition and put a few checks in the ycmd’s CMakeLists. Here is &lt;a href=&quot;https://gist.github.com/danielmario/639a487949837422485740dbacf09509&quot;&gt;the patch file&lt;/a&gt;.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;pacman -S git cmake gcc python2
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pacman -S git cmake gcc python2
 cd ~/.vim/plugged/YouCompleteMe
 git pull &amp;amp;&amp;amp; git submodule update --init --recursive
 patch -p1 -d third-party/ycmd &amp;lt; ~/Downloads/msys2-ycm.patch
 python2 install.py
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;I left Clang out because it is still buggy, but at least we have YCM up and running! :]&lt;/p&gt;
 </content>
@@ -201,6 +198,7 @@ python2 install.py
 I just wish to empty the drawer of interrupted projects (and make this blog roll.)&lt;/p&gt;
 
 &lt;p&gt;Happy 2016!&lt;/p&gt;
+
 </content>
 	</entry>
 	
@@ -211,7 +209,7 @@ I just wish to empty the drawer of interrupted projects (and make this blog roll
 		<id>daniel's blog/blog/2015/10/07/million-man-march</id>
 		<content type="html">&lt;p&gt;In three days the &lt;a href=&quot;http://en.wikipedia.org/wiki/Million_Man_March&quot;&gt;20th Million Man March&lt;/a&gt;
 will happen.
-I made this T-Shirt design for one of the attendant groups, but got no response yet...&lt;/p&gt;
+I made this T-Shirt design for one of the attendant groups, but got no response yet…&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/img/2015/tshirt-million-man.jpg&quot; alt=&quot;20thMMM T-Shirt&quot; /&gt;&lt;/p&gt;
 
@@ -224,10 +222,11 @@ I made this T-Shirt design for one of the attendant groups, but got no response 
 		<link href="/meta/2015/10/01/under-construction/"/>
 		<updated>2015-10-01T00:00:00-03:00</updated>
 		<id>daniel's blog/meta/2015/10/01/under-construction</id>
-		<content type="html">&lt;p&gt;With barely a month left, I'm suddenly thinking about the
+		<content type="html">&lt;p&gt;With barely a month left, I’m suddenly thinking about the 
 &lt;a href=&quot;http://codegeist.devpost.com&quot;&gt;Codegeist 2015 Hackaton&lt;/a&gt;. So
-tinyhub, you will be both my vendor identity and my development
-blog. Let's see what happens.&lt;/p&gt;
+tinyhub, you will be both my vendor identity and my development 
+blog. Let’s see what happens.&lt;/p&gt;
+
 </content>
 	</entry>
 	

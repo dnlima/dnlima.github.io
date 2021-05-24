@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>PEG or Regex? | daniel's blog</title>
     <meta name="author" content="Daniel Lima">
-    <meta name="description" content="my µblog">
+    <meta name="description" content="my blog">
     <meta name="keywords" content="">
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/atom.xml">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Fira+Mono'>
@@ -59,28 +59,28 @@
 <p>Some basic examples:</p>
 
 <ol>
-<li><code>/ok/</code> matches any string with <code>ok</code> inside, that is, <code>aok</code>, <code>not ok</code>, <code>okay</code>;</li>
-<li><code>/^ok/</code> matches any string starting with <code>ok</code>, e.g. <code>ok2</code>, <code>okay</code>;</li>
-<li><code>/^ok$/</code> matches <code>ok</code> exactly;</li>
-<li><code>/^ok = (true|false)$/</code> matches <code>ok = true</code> or <code>ok = false</code> exactly, returning the <em>capture group</em> in parethesis;</li>
-<li><code>/^version = (\d\.\d+)$/</code> matches <code>ok =</code> plus one digit, a point and one or more digits (<code>\d</code> is a digit, <code>\.</code> is the point, and <code>+</code> is one or more repetitions of the preceding expression), so we can capture a floating point number written just after version.</li>
+  <li><code class="language-plaintext highlighter-rouge">/ok/</code> matches any string with <code class="language-plaintext highlighter-rouge">ok</code> inside, that is, <code class="language-plaintext highlighter-rouge">aok</code>, <code class="language-plaintext highlighter-rouge">not ok</code>, <code class="language-plaintext highlighter-rouge">okay</code>;</li>
+  <li><code class="language-plaintext highlighter-rouge">/^ok/</code> matches any string starting with <code class="language-plaintext highlighter-rouge">ok</code>, e.g. <code class="language-plaintext highlighter-rouge">ok2</code>, <code class="language-plaintext highlighter-rouge">okay</code>;</li>
+  <li><code class="language-plaintext highlighter-rouge">/^ok$/</code> matches <code class="language-plaintext highlighter-rouge">ok</code> exactly;</li>
+  <li><code class="language-plaintext highlighter-rouge">/^ok = (true|false)$/</code> matches <code class="language-plaintext highlighter-rouge">ok = true</code> or <code class="language-plaintext highlighter-rouge">ok = false</code> exactly, returning the <em>capture group</em> in parethesis;</li>
+  <li><code class="language-plaintext highlighter-rouge">/^version = (\d\.\d+)$/</code> matches <code class="language-plaintext highlighter-rouge">ok =</code> plus one digit, a point and one or more digits (<code class="language-plaintext highlighter-rouge">\d</code> is a digit, <code class="language-plaintext highlighter-rouge">\.</code> is the point, and <code class="language-plaintext highlighter-rouge">+</code> is one or more repetitions of the preceding expression), so we can capture a floating point number written just after version.</li>
 </ol>
 
+<p>Then we see that Regular Expressions a offer pretty concise way of parsing text, but the problem is when we need more complex and longer patterns. For example, what about parsing all components (year, month, etc…) of an ISO datetime string, e.g., <code class="language-plaintext highlighter-rouge">2016-08-15T17:51:52.291Z</code>? Then we need something like:</p>
 
-<p>Then we see that Regular Expressions a offer pretty concise way of parsing text, but the problem is when we need more complex and longer patterns. For example, what about parsing all components (year, month, etc...) of an ISO datetime string, e.g., <code>2016-08-15T17:51:52.291Z</code>? Then we need something like:</p>
-
-<p><code>/(\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2})\.(\d+)Z/</code></p>
+<p><code class="language-plaintext highlighter-rouge">/(\d{4})-(\d{2})-(\d{2})T(\d{2})\:(\d{2})\:(\d{2})\.(\d+)Z/</code></p>
 
 <p>Which is perfectly fine, but demands a careful examination to write and read. One day I thought that a more descriptive way would be interesting, if not desirable. Then I found the module <a href="ww.inf.puc-rio.br/~roberto/lpeg/re.html">LPeg.re</a>, implemented with <a href="http://www.inf.puc-rio.br/~roberto/docs/peg.pdf">Parsing Expression Grammars</a>, which is a lot more closer to the <a href="https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_Form">Backus-Naur Form</a> and provides more structured syntax. For example, the pattern for the previous regex could be written as:</p>
 
-<pre><code class="">datetime &lt;- date 'T' time 'Z'
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>datetime &lt;- date 'T' time 'Z'
 date &lt;- {%d^4} '-' {%d^2} '-' {%d^2}
 time &lt;- {%d^2} ':' {%d^2} ':' {%d^2 ('.' {%d+})?}
-</code></pre>
 
-<p>Here <code>%d</code> is a digit, <code>{}</code> denote capture groups and <code>^n</code> denote <em>n</em> repetitions of the preceding pattern.</p>
+</code></pre></div></div>
 
-<p>Even though it is longer, it makes possible to separate and name sub-patterns, structuring the source code a lot more -- much like how early macro assemblers evolved into structured programming languages. PEG also offers text transformation and returning objects from captures, sort of an advanced <code>awk</code> or <code>sed</code> integrated in the library, but that is for another day. =]</p>
+<p>Here <code class="language-plaintext highlighter-rouge">%d</code> is a digit, <code class="language-plaintext highlighter-rouge">{}</code> denote capture groups and <code class="language-plaintext highlighter-rouge">^n</code> denote <em>n</em> repetitions of the preceding pattern.</p>
+
+<p>Even though it is longer, it makes possible to separate and name sub-patterns, structuring the source code a lot more – much like how early macro assemblers evolved into structured programming languages. PEG also offers text transformation and returning objects from captures, sort of an advanced <code class="language-plaintext highlighter-rouge">awk</code> or <code class="language-plaintext highlighter-rouge">sed</code> integrated in the library, but that is for another day. =]</p>
 </div>
   <footer>
     <span class="author"><i class="icon-user"></i> Daniel Lima</span>
