@@ -4,7 +4,7 @@
 	<title>daniel's blog</title>
 	<link href="/atom.xml" rel="self"/>
 	<link href="/"/>
-	<updated>2021-08-01T13:16:31-03:00</updated>
+	<updated>2021-10-13T15:19:07-03:00</updated>
 	<id>http://limadm.github.io//</id>
 	<author>
 		<name>Daniel Lima</name>
@@ -14,7 +14,7 @@
 	<entry>
 		<title>Nixies + Raspberry Pi</title>
 		<link href="/blog/2016/12/25/nixie-tubes-raspi/"/>
-		<updated>2016-12-25T00:00:00-02:00</updated>
+		<updated>2016-12-25T00:00:00-03:00</updated>
 		<id>daniel's blog/blog/2016/12/25/nixie-tubes-raspi</id>
 		<content type="html">&lt;p&gt;A client requested my help to make various sorts of transitions for his steampunk nixie tube display, controlled by a Raspberry Pi v2. He asked me to code in Python, if possible. So, is python fast enough for software PWM? Let’s try.&lt;/p&gt;
 
@@ -192,7 +192,7 @@ python2 install.py
 	<entry>
 		<title>New Year</title>
 		<link href="/blog/2015/12/30/new-year/"/>
-		<updated>2015-12-30T00:00:00-02:00</updated>
+		<updated>2015-12-30T00:00:00-03:00</updated>
 		<id>daniel's blog/blog/2015/12/30/new-year</id>
 		<content type="html">&lt;p&gt;Another year comes, so it is time for renewed spirits and happy faces!
 I just wish to empty the drawer of interrupted projects (and make this blog roll.)&lt;/p&gt;
