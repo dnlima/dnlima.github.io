@@ -117,16 +117,11 @@ article {
 }
 article div.dateflag {
 	position: absolute;
-	top: 8px;
-	right: 8px;
-	width: 2.5em;
-	height: 2.5em;
-	color: #741;
-	background-color: #eed;
-	border: 1px dashed #cb9;
-	border-radius: 3em;
-	text-align: center;
-	padding-bottom: 3px;
+	top: 12px;
+	right: 12px;
+	color: gray;
+	text-align: right;
+	padding: 0 5px 3px 0;
 }
 article div.dateflag .month {
 	font-size: 0.7em;
